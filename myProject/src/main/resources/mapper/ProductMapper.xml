@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.myproject.demo.mapper.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.myproject.demo.entity.Product">
+      <result column="product_id" jdbcType="INTEGER" property="productId"/>
+      <result column="product_name" jdbcType="VARCHAR" property="productName"/>
+      <result column="product_price" jdbcType="DOUBLE" property="productPrice"/>
+      <result column="product_type" jdbcType="INTEGER" property="productType"/>
+      <result column="product_img" jdbcType="VARCHAR" property="productImg"/>
+      <result column="product_des" jdbcType="VARCHAR" property="productDes"/>
+  </resultMap>
+    <insert id="addProduct" parameterType="com.myproject.demo.entity.Product">
+        INSERT into product(product_name,product_price,product_type,product_img,product_des)
+                values (#{productName} ,#{productPrice} ,#{productType} ,#{productImg} ,#{productDes} )
+    </insert>
+
+    <select id="getProductList" resultMap="BaseResultMap">
+        SELECT * from product
+    </select>
+
+    <select id="getProductByKey" resultMap="BaseResultMap">
+        SELECT * from product where product_name like concat('%',#{productName} ,'%') or product_des like concat('%',#{productName} ,'%')
+    </select>
+
+    <select id="getProductByCondition" resultMap="BaseResultMap">
+        SELECT * from product
+        <where>
+            <if test="productName != null and productName != ''">
+                and product_name like concat('%',#{productName},'%')
+            </if>
+            <if test="productType != null and productType != ''">
+                and product_type = #{productType}
+            </if>
+        </where>
+    </select>
+</mapper>
