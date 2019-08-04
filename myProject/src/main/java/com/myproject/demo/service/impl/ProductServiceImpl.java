@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ProductServiceImpl implements ProductService {
+public class ProductServiceImpl implements ProductService{
     @Autowired
     ProductMapper productMapper;
 
@@ -35,5 +35,39 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getProductByCondition(String productName, int productType) {
         List<Product> productList = productMapper.getProductByCondition(productName,productType);
         return productList;
+    }
+
+
+    /**
+     * 更新Product
+     * @param product
+     * @return
+     */
+    @Override
+    public int updateProduct(Product product){
+        int count = 0;
+        try{
+            count = productMapper.updateProduct(product);
+        }catch (Exception err){
+            System.out.println(err);
+        }
+
+        return count;
+    }
+
+    /**
+     * 删除Product
+     * @param productId
+     * @return
+     */
+    @Override
+    public int deleteProduct(int productId) {
+        int count = 0;
+        try{
+            count = productMapper.deleteProduct(productId);
+        }catch (Exception err){
+            System.out.println(err);
+        }
+        return count;
     }
 }

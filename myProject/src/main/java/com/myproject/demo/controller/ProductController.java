@@ -68,4 +68,40 @@ public class ProductController {
         productResponse.setResponse("查询成功",1,true,productList);
         return productResponse;
     }
+
+    @RequestMapping(value = "updateProduct",method = RequestMethod.POST)
+    public Response updateProduct(@RequestBody Product product){
+        int productId = product.getProductId();
+        int count = productService.updateProduct(product);
+        if(productId !=0){
+            if(count>0){
+                Response response = new Response("更新成功",1,true);
+                return response;
+            }else{
+                Response response = new Response("更新失败",-1,false);
+                return response;
+            }
+        }else {
+            Response response = new Response("请传入商品id",-1,false);
+            return response;
+        }
+    }
+
+    @RequestMapping(value = "deleteProduct",method = RequestMethod.POST)
+    public Response deleteProduct(@RequestBody Product product){
+        int productId = product.getProductId();
+        if(productId !=0){
+            int count = productService.deleteProduct(productId);
+            if(count>0){
+                Response response = new Response("删除成功",1,true);
+                return response;
+            }else{
+                Response response = new Response("删除失败",-1,false);
+                return response;
+            }
+        }else {
+            Response response = new Response("删除失败，请传入商品id",-1,false);
+            return response;
+        }
+    }
 }
