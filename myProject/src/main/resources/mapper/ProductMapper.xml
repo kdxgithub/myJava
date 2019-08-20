@@ -34,4 +34,30 @@
             </if>
         </where>
     </select>
+
+    <update id="updateProduct" parameterType="com.myproject.demo.entity.Product">
+        update product
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="pro.productName != null and pro.productName != ''">
+                product_name =#{pro.productName} ,
+            </if>
+            <if test="pro.productPrice != null and pro.productPrice != -1">
+                product_price = #{pro.productPrice} ,
+            </if>
+            <if test="pro.productType != null and pro.productType != -1">
+                product_type = #{pro.productType} ,
+            </if>
+            <if test="pro.productImg != null and pro.productImg != ''">
+                product_img = #{pro.productImg} ,
+            </if>
+            <if test="pro.productDes != null and pro.productDes != ''">
+                product_des = #{pro.productDes} ,
+            </if>
+        </trim>
+        where product_id = #{pro.productId}
+    </update>
+
+    <delete id="deleteProduct">
+        delete from product where product_id = #{productId}
+    </delete>
 </mapper>
