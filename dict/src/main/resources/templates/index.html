@@ -3,12 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>DICT查询系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link th:href="@{/layui/css/layui.css}" rel="stylesheet">
 </head>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
 <body class="layui-layout-body">
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-            <div class="layui-logo">DICT查询系统</div>
+            <div class="layui-logo">
+                <i class="layui-icon" style="font-size:20px;color: #7F8C96;">&#xe65a;</i>
+                DICT查询系统
+            </div>
             <!-- 头部区域（可配合layui已有的水平导航）    -->
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item"><a href="">控制台</a> </li>
@@ -56,34 +67,35 @@
             </div>
         </div>
 
-        <div class="layui-body">
+        <div class="layui-container">
 <!--            内容主题区域-->
-            <div style="padding: 15px;">内容主题区域</div>
-            <table class="layui-table">
-                <colgroup>
-                    <col width="150">
-                    <col width="200">
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>服务序号</th>
-                        <th>服务场景</th>
-                        <th>服务名称</th>
-                        <th>宣传语</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="i:${info}">
-                        <td th:text="${i.getSepId()}"></td>
-                        <td th:text="${i.getSepNumber()}"></td>
-                        <td th:text="${i.getSepScope()}"></td>
-                        <td th:text="${i.getSepName()}"></td>
-                        <td th:text="${i.getSepTagline()}"></td>
+            <div class="layui-body ">
+                <blockquote class="layui-elem-quote">产品搜索</blockquote>
 
-                    </tr>
-                </tbody>
-            </table>
+                <div th:each="first : ${firstList}">
+                    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                        <legend th:text="${first.getServiceScope()}"></legend>
+                    </fieldset>
+                    <div class="layui-row layui-col-space10">
+                        <div class="layui-col-xs6 layui-col-sm6 layui-col-md6" th:each="second:${secondList}">
+                            <div class="layui-collapse">
+                                <div class="layui-colla-item">
+                                    <h2 class="layui-colla-title" th:text="${second.getServiceName()}">云考勤</h2>
+                                    <div class="layui-colla-content ">
+                                        <div class="layui-card">
+                                            <div class="layui-card-header" th:text="${second.getServiceTagline()}">考勤进入刷脸卡时代</div>
+                                            <div class="layui-card-body">
+                                                非标产品-人脸考勤<br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
         <div class="layui-footer">

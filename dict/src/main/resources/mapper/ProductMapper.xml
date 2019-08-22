@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dict.demo.mapper.ProductMapper">
+    <resultMap id="BaseResultMap" type="com.dict.demo.entity.Product">
+        <result column="service_id" jdbcType="INTEGER" property="serviceId"/>
+        <result column="service_scope" jdbcType="VARCHAR" property="serviceScope"/>
+        <result column="service_name" jdbcType="VARCHAR" property="serviceName"/>
+        <result column="service_tagline" jdbcType="VARCHAR" property="serviceTagline"/>
+        <result column="product_id" jdbcType="INTEGER" property="productId"/>
+        <result column="product_name" jdbcType="VARCHAR" property="productName"/>
+        <result column="is_standard" jdbcType="INTEGER" property="isStandard"/>
+        <result column="product_function" jdbcType="VARCHAR" property="productFunction"/>
+        <result column="product_function_des" jdbcType="VARCHAR" property="productFunctionDes"/>
+        <result column="price" jdbcType="VARCHAR" property="price"/>
+        <result column="label" jdbcType="VARCHAR" property="label"/>
+    </resultMap>
+
+    <select id="getAllServiceScope" resultMap="BaseResultMap">
+        select distinct product.service_scope from product
+    </select>
+
+    <select id="getAllServiceName" resultMap="BaseResultMap">
+        select distinct product.service_name,product.service_tagline
+        from product
+    </select>
+
+    <select id="getAllProductName" resultMap="BaseResultMap">
+        select distinct product.product_name
+        from product
+    </select>
+
+</mapper>

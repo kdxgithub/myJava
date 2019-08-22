@@ -10,6 +10,9 @@
     </resultMap>
 
     <select id="getServingProductList" resultMap="ResultSepMap">
-        select * from servingproduct
+        select servingproduct.sep_scope,servingproduct.sep_name,servingproduct.sep_tagline,specificproduct.sfp_name
+        from servingproduct
+        INNER join specificproduct
+        where servingproduct.sep_number = specificproduct.sfp_number
     </select>
 </mapper>
