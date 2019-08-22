@@ -26,8 +26,8 @@ public class ProductController {
         List<Product> firstList = productService.getAllServiceScope();
         List<Product> secondList = productService.getAllServiceName();
         List<Product> thirdList = productService.getAllProductName();
-        model.addAttribute("firstList",firstList);
         model.addAttribute("secondList",secondList);
+        model.addAttribute("firstList",firstList);
         model.addAttribute("thirdList",thirdList);
         return "index";
     }

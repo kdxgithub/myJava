@@ -24,7 +24,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAllServiceName() {
-        return productMapper.getAllServiceScope();
+        return productMapper.getAllServiceName();
     }
 
     @Override
