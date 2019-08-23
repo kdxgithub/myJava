@@ -16,17 +16,17 @@
     </resultMap>
 
     <select id="getAllServiceScope" resultMap="BaseResultMap">
-        select distinct product.service_id,product.service_scope
+        select distinct product.service_scope
         from product
     </select>
 
     <select id="getAllServiceName" resultMap="BaseResultMap">
-        select product.product_id,product.service_name,product.service_tagline
+        select distinct product.service_scope,product.service_name,product.service_tagline
         from product
     </select>
 
     <select id="getAllProductName" resultMap="BaseResultMap">
-        select distinct product.product_name
+        select distinct product.service_name,product.product_name,product.product_function,product.product_function_des
         from product
     </select>
 

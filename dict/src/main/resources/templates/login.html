@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style type="text/css">
+        .hide{
+            display: none;
+        }
+    </style>
 </head>
 <body>
         <!--<span th:each="third:${thirdList}">-->
@@ -14,15 +19,28 @@
         <!--<div th:each="i:${firstList}">-->
             <!--<p th:text="${i.getServiceScope()}"></p>-->
         <!--</div>-->
-        <p th:if="${5>3}">hhhhh
-            <div>sadasdasd</div>
-            <div>asdasdasd</div>
-        </p>
+        <div th:if="5>3">
+            <div>asdasd</div>
+            <div>ssssss</div>
+        </div>
 
-        <p th:if="${5<3}">wwwwww
-            <div th:if="${5<3}">sadasdasd</div>
+        <div class="hide">
+            <div >sadasdasd</div>
+            <div >asdasdasd</div>
+        </div>
+
+        <div th:if="5<3">
             <div>asdasdasd</div>
-        </p>
+            <div>asdasdasd</div>
+            <div>asdasdasd</div>
+        </div>
+
+        <div th:if="5>3">
+            <div>asdasd</div>
+            <div>ssssss</div>
+        </div>
+
+
 
 </body>
 </html>

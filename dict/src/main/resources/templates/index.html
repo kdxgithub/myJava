@@ -50,7 +50,7 @@
 <!--               左侧导航区域（可配合layui已有的垂直导航）-->
                 <ul class="layui-nav layui-nav-tree" lay-filter="test">
                     <li class="layui-nav-item layui-nav-itemed">
-                        <a href="javascript:;">所有商品</a>
+                        <a href="javascript:;">查询商品</a>
                         <dl class="layui-nav-child">
                             <dd><a href="javascript:;">行政办公</a></dd>
                             <dd><a href="javascript:;">会议协同</a></dd>
@@ -61,7 +61,7 @@
                     </li>
 
                     <li class="layui-nav-item">
-                        <a href="">购物车</a>
+                        <a href="">报价系统</a>
                     </li>
                 </ul>
             </div>
@@ -77,15 +77,27 @@
                         <legend th:text="${first.getServiceScope()}"></legend>
                     </fieldset>
                     <div class="layui-row layui-col-space10">
-                        <div class="layui-col-xs6 layui-col-sm6 layui-col-md6" th:each="second:${secondList}">
+                        <div class="layui-col-xs6 layui-col-sm6 layui-col-md6" th:each="second:${secondList}" th:if="${second.getServiceScope().equals(first.getServiceScope())}">
                             <div class="layui-collapse">
                                 <div class="layui-colla-item">
                                     <h2 class="layui-colla-title" th:text="${second.getServiceName()}">云考勤</h2>
                                     <div class="layui-colla-content ">
                                         <div class="layui-card">
                                             <div class="layui-card-header" th:text="${second.getServiceTagline()}">考勤进入刷脸卡时代</div>
-                                            <div class="layui-card-body">
-                                                非标产品-人脸考勤<br>
+                                            <div class="layui-card-body" >
+                                                <div th:each="third:${thirdList}" th:if="${third.getServiceName().equals(second.getServiceName())}">
+                                                    <div class="layui-collapse">
+                                                        <div class="layui-colla-item">
+                                                            <h2 class="layui-colla-title" th:text="${third.getProductName()}">云考勤</h2>
+                                                            <div class="layui-colla-content ">
+                                                                <div class="layui-card">
+                                                                    <div class="layui-card-header" th:text="功能介绍">功能介绍</div>
+                                                                    <div class="layui-card-body" th:text="${third.getProductFunction()}+'<a>sss</a>'">功能描述</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
