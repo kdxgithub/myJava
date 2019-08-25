@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/layui/css/layui.css}" rel="stylesheet" />
+</head>
+<body>
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>报账系统</legend>
+    </fieldset>
+
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">服务场景</label>
+            <div class="layui-input-inline">
+                <select name="product1" lay-verify="" >
+                    <option value="">请选择一个服务场景</option>
+                    <option value="101">行政办公</option>
+                    <option value="102">会议协同</option>
+                    <option value="103">销售服务</option>
+                    <option value="104">IT系统建设运维</option>
+                </select>
+            </div>
+            <label class="layui-form-label">服务名称</label>
+            <div class="layui-input-inline">
+                <select name="product2" lay-verify="" >
+                    <option value="">请选择一个服务名称</option>
+                    <option value="1001">云考勤</option>
+                    <option value="1002">云WiFi</option>
+                    <option value="1003">云桌面</option>
+                    <option value="1004">云办公</option>
+                    <option value="1005">云监控</option>
+                    <option value="1006">云对讲</option>
+                    <option value="1007">云简讯</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">产品名称</label>
+            <div class="layui-input-inline">
+                <select name="product3" lay-verify="" >
+                    <option value="">请选择一个产品名称</option>
+                    <option value="10001">人脸考勤</option>
+                    <option value="10002">云WiFi</option>
+                    <option value="10003">云桌面</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+
+<script th:src="@{/layui/layui.js}"></script>
+<script>
+    layui.use('form',function () {
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)',function(data){
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+    });
+    layui.use('element',function () {
+        var element = layui.element;
+    });
+</script>
+</body>
+</html>

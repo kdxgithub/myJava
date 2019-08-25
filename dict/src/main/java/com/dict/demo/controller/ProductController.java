@@ -41,4 +41,9 @@ public class ProductController {
     public String item(){
         return "item";
     }
+
+    @RequestMapping(value = "test")
+    public String test(){
+        return "test";
+    }
 }
