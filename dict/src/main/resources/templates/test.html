@@ -12,39 +12,54 @@
 
     <form class="layui-form" action="">
         <div class="layui-form-item">
-            <label class="layui-form-label">服务场景</label>
+            <label class="layui-form-label" >服务场景</label>
             <div class="layui-input-inline">
-                <select name="product1" lay-verify="" >
+                <select name="product1" id="product1" lay-filter="product1" lay-verify="required">
                     <option value="">请选择一个服务场景</option>
-                    <option value="101">行政办公</option>
-                    <option value="102">会议协同</option>
-                    <option value="103">销售服务</option>
-                    <option value="104">IT系统建设运维</option>
+                    <option th:each="scope:${firstList}" th:value="${scope.getServiceScope()}" th:text="${scope.getServiceScope()}">行政办公</option>
                 </select>
             </div>
             <label class="layui-form-label">服务名称</label>
             <div class="layui-input-inline">
-                <select name="product2" lay-verify="" >
+                <select name="product2" id="product2" lay-filter="product2" lay-verify="required">
                     <option value="">请选择一个服务名称</option>
-                    <option value="1001">云考勤</option>
-                    <option value="1002">云WiFi</option>
-                    <option value="1003">云桌面</option>
-                    <option value="1004">云办公</option>
-                    <option value="1005">云监控</option>
-                    <option value="1006">云对讲</option>
-                    <option value="1007">云简讯</option>
                 </select>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">产品名称</label>
             <div class="layui-input-inline">
-                <select name="product3" lay-verify="" >
+                <select name="product3" id="product3" lay-filter="product3" lay-verify="required" >
                     <option value="">请选择一个产品名称</option>
-                    <option value="10001">人脸考勤</option>
-                    <option value="10002">云WiFi</option>
-                    <option value="10003">云桌面</option>
                 </select>
+            </div>
+            <label class="layui-form-label">需求数量</label>
+            <div class="layui-input-inline">
+                <input name="count" lay-verify="required" placeholder="请输入数量" class="layui-input" oninput="value=value.replace(/[^\d]/g,'')" />
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">套餐选择</label>
+            <div class="layui-input-inline">
+                <select name="product4" id="product4" lay-filter="product4" lay-verify="required" >
+                    <option value="">请选择一个产品套餐</option>
+                </select>
+            </div>
+            <label class="layui-form-label">资费情况</label>
+            <div class="layui-input-inline">
+                <input name="priceCount" id="priceCount" lay-verify="required" placeholder="展示资费情况" class="layui-input" disabled oninput="value=value.replace(/[^\d]/g,'')"/>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">使用时长</label>
+            <div class="layui-input-inline">
+                <input name="time" id="time" lay-verify="required" placeholder="单位：月" class="layui-input" oninput="value=value.replace(/[^\d]/g,'')"/>
+            </div>
+            <label class="layui-form-label">折扣(%)</label>
+            <div class="layui-input-inline">
+                <input name="discount" id="discount" lay-verify="required" placeholder="单位：%" class="layui-input" oninput="value=value.replace(/[^\d]/g,'')"/>
             </div>
         </div>
 
@@ -57,14 +72,91 @@
     </form>
 
 <script th:src="@{/layui/layui.js}"></script>
+<script th:src="@{js/jquery-3.4.1.js}"></script>
 <script>
     layui.use('form',function () {
         var form = layui.form;
-
         //监听提交
         form.on('submit(formDemo)',function(data){
             layer.msg(JSON.stringify(data.field));
             return false;
+        });
+        //二级联动下拉列表：服务名称选择
+        form.on('select(product1)',function () {
+           var optionstring = "";
+           var product1 = $("#product1").val();
+           $.ajax({
+              type:'POST',
+               url:'getSecondList',
+               dataType:'json',
+               async:true,
+               success:function (second) {
+                  if(second == null){
+                      alert("没有数据");
+                  }else{
+                      for(var i=0;i<second.length;i++){
+                          if(second[i].serviceScope === product1){
+                              optionstring += "<option value='"+second[i].serviceName+"'>"+second[i].serviceName+"</option>";
+                          }
+                      }
+                      $("#product2").html("<option value='' selected>请选择服务名称</option>"+optionstring);
+                      form.render('select');
+                  }
+               }
+           });
+        });
+
+        //三级联动下拉列表：具体产品选择
+        form.on('select(product2)',function () {
+            var optionstring = "";
+            var product2 = $("#product2").val();
+            $.ajax({
+                type:'POST',
+                url:'getThirdList',
+                dataType:'json',
+                async:true,
+                success:function (third) {
+                    if(third == null){
+                        alert("没有数据");
+                    }else{
+                        for(var i=0;i<third.length;i++){
+                            if(third[i].serviceName === product2){
+                                optionstring += "<option value='"+third[i].productName+"'>"+third[i].productName+"</option>";
+                            }
+                        }
+                        $("#product3").html("<option value='' selected>请选择服务名称</option>"+optionstring);
+                        form.render('select');
+                    }
+                }
+            });
+        });
+
+        //四级联动下拉列表：产品套餐选择
+        form.on('select(product3)',function () {
+            var optionstring = "";
+            var product3 = $("#product3").val();
+            if(product3 === "人脸考勤"){
+                optionstring += "<option value='人脸考勤'>按项目方案报价</option>";
+            }
+
+            $("#product4").html("<option value='' selected>请选择一个产品套餐</option>"+optionstring);
+            form.render('select');
+        });
+
+        //五级联动输出框：资费情况
+        form.on('select(product4)',function () {
+            var optionstring = "";
+            var product4 = $("#product4").val();
+            alert(product4);
+            if(product4 === "人脸考勤"||product4 === "云WiFi"||product4 === "云会议"
+            ||product4 === "视频会议" || product4 === "综合布线" || product4 ==="IT系统集成"
+            ||product4 === "机房整治" || product4 === "IT代维" || product4 === "云堤"){
+                $("#priceCount").removeAttr("disabled");
+                $("#priceCount").attr("placeholder","请输入每月收费");
+            }else{
+                $("#priceCount").attr("disabled","disabled");
+            }
+
         });
     });
     layui.use('element',function () {

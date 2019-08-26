@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -43,7 +44,28 @@ public class ProductController {
     }
 
     @RequestMapping(value = "test")
-    public String test(){
+    public String test(Model model){
+        List<Product> firstList = productService.getAllServiceScope();
+        List<Product> secondList = productService.getAllServiceName();
+        List<Product> thirdList = productService.getAllProductName();
+        model.addAttribute("secondList",secondList);
+        model.addAttribute("firstList",firstList);
+        model.addAttribute("thirdList",thirdList);
+
         return "test";
+    }
+
+    @RequestMapping(value = "getSecondList")
+    @ResponseBody
+    public List<Product> getSecondList(){
+        List<Product> secondList = productService.getAllServiceName();
+        return secondList;
+    }
+
+    @RequestMapping(value = "getThirdList")
+    @ResponseBody
+    public List<Product> getThirdList(){
+        List<Product> thirdList = productService.getAllProductName();
+        return thirdList;
     }
 }
