@@ -71,6 +71,12 @@
         </div>
     </form>
 
+    <div>
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>报账展示</legend>
+        </fieldset>
+    </div>
+
 <script th:src="@{/layui/layui.js}"></script>
 <script th:src="@{js/jquery-3.4.1.js}"></script>
 <script>
@@ -147,7 +153,6 @@
         form.on('select(product4)',function () {
             var optionstring = "";
             var product4 = $("#product4").val();
-            alert(product4);
             if(product4 === "人脸考勤"||product4 === "云WiFi"||product4 === "云会议"
             ||product4 === "视频会议" || product4 === "综合布线" || product4 ==="IT系统集成"
             ||product4 === "机房整治" || product4 === "IT代维" || product4 === "云堤"){
