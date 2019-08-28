@@ -31,4 +31,14 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getAllProductName() {
         return productMapper.getAllProductName();
     }
+
+    @Override
+    public List<Product> getAllIsNotStandardProduct() {
+        return productMapper.getAllIsNotStandardProduct();
+    }
+
+    @Override
+    public Product getIsStandardProduct(String productId) {
+        return productMapper.getIsStandardProduct(productId);
+    }
 }

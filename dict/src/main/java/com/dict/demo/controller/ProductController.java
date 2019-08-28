@@ -68,4 +68,18 @@ public class ProductController {
         List<Product> thirdList = productService.getAllProductName();
         return thirdList;
     }
+
+    @RequestMapping(value = "getAllIsNotStandardProduct")
+    @ResponseBody
+    public List<Product> getAllIsNotStandardProduct(){
+        List<Product> isStandardList = productService.getAllProductName();
+        return isStandardList;
+    }
+
+    @RequestMapping(value = "getIsStandardProduct")
+    @ResponseBody
+    public Product getIsStandardProduct(String productId){
+        Product product = productService.getIsStandardProduct(productId);
+        return product;
+    }
 }

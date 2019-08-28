@@ -32,4 +32,22 @@ public interface ProductService {
      * @Date:2019/8/22 16:35
      */
     List<Product> getAllProductName();
+
+    /**
+     功能描述 获取所有非标产品的信息
+     * @param null
+     * @return  java.util.List<com.dict.demo.entity.Product>
+     * @author  CDDX
+     * @date  2019/8/28 14:32
+     */
+    List<Product> getAllIsNotStandardProduct();
+
+    /**
+     功能描述 根据 productId 查询是否标准产品
+     * @param productId
+     * @return  com.dict.demo.entity.Product
+     * @author  CDDX
+     * @date  2019/8/28 15:03
+     */
+    Product getIsStandardProduct(String productId);
 }

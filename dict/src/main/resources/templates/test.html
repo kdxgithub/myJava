@@ -16,7 +16,7 @@
             <div class="layui-input-inline">
                 <select name="product1" id="product1" lay-filter="product1" lay-verify="required">
                     <option value="">请选择一个服务场景</option>
-                    <option th:each="scope:${firstList}" th:value="${scope.getServiceScope()}" th:text="${scope.getServiceScope()}">行政办公</option>
+                    <option th:each="scope:${firstList}" th:value="${scope.getScopeId()}" th:text="${scope.getScopeName()}">行政办公</option>
                 </select>
             </div>
             <label class="layui-form-label">服务名称</label>
@@ -37,6 +37,7 @@
             <div class="layui-input-inline">
                 <input name="count" lay-verify="required" placeholder="请输入数量" class="layui-input" oninput="value=value.replace(/[^\d]/g,'')" />
             </div>
+<!--            <div class="layui-form-mid layui-word-aux">辅助文字</div>-->
         </div>
 
         <div class="layui-form-item">
@@ -46,7 +47,7 @@
                     <option value="">请选择一个产品套餐</option>
                 </select>
             </div>
-            <label class="layui-form-label">资费情况</label>
+            <label class="layui-form-label">每月资费</label>
             <div class="layui-input-inline">
                 <input name="priceCount" id="priceCount" lay-verify="required" placeholder="展示资费情况" class="layui-input" disabled oninput="value=value.replace(/[^\d]/g,'')"/>
             </div>
@@ -65,7 +66,7 @@
 
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即添加</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
@@ -101,8 +102,8 @@
                       alert("没有数据");
                   }else{
                       for(var i=0;i<second.length;i++){
-                          if(second[i].serviceScope === product1){
-                              optionstring += "<option value='"+second[i].serviceName+"'>"+second[i].serviceName+"</option>";
+                          if(second[i].scopeId === product1){
+                              optionstring += "<option value='"+second[i].serviceId+"'>"+second[i].serviceName+"</option>";
                           }
                       }
                       $("#product2").html("<option value='' selected>请选择服务名称</option>"+optionstring);
@@ -126,11 +127,11 @@
                         alert("没有数据");
                     }else{
                         for(var i=0;i<third.length;i++){
-                            if(third[i].serviceName === product2){
-                                optionstring += "<option value='"+third[i].productName+"'>"+third[i].productName+"</option>";
+                            if(third[i].serviceId === product2){
+                                optionstring += "<option value='"+third[i].productId+"'>"+third[i].productName+"</option>";
                             }
                         }
-                        $("#product3").html("<option value='' selected>请选择服务名称</option>"+optionstring);
+                        $("#product3").html("<option value='' selected>请选择产品名称</option>"+optionstring);
                         form.render('select');
                     }
                 }
@@ -141,27 +142,86 @@
         form.on('select(product3)',function () {
             var optionstring = "";
             var product3 = $("#product3").val();
-            if(product3 === "人脸考勤"){
-                optionstring += "<option value='人脸考勤'>按项目方案报价</option>";
-            }
-
-            $("#product4").html("<option value='' selected>请选择一个产品套餐</option>"+optionstring);
-            form.render('select');
+            $.ajax({
+                type:'POST',
+                url:'getIsStandardProduct?productId='+product3,
+                dataType:'json',
+                async:true,
+                success:function (isStandard) {
+                    if(isStandard == null){
+                        alert("没有数据");
+                    }else{
+                        if(isStandard.isPrice === 0){
+                            optionstring += "<option value='"+isStandard.productId+"'>按项目方案报价</option>";
+                        }else{
+                            if(isStandard.productId === "1011301"){
+                                //云桌面
+                                optionstring +=
+                                    "<optgroup label='云桌面基础配置'>" +
+                                        "<option value='204'>" +
+                                            "标准型204元/月：2VPU,4GB内存，80GB系统盘SAS，操作系统Windows  Server 2008 R2 含Windows 7 体验桌面" +
+                                        "</option>" +
+                                        "<option value='380'>" +
+                                            "高配型380元/月：4VPU,8GB内存，80GB系统盘SAS，操作系统Windows  Server 2008 R2 含Windows 7 体验桌面" +
+                                        "</option>" +
+                                        "<option value='691'>" +
+                                            "旗舰型691元/月：8VPU,16GB内存，80GB系统盘SAS，操作系统Windows  Server 2008 R2 含Windows 7 体验桌面" +
+                                        "</option>" +
+                                    "</optgroup>"+
+                                    "<optgroup label='出口带宽'>" +
+                                    "<option value='20'>" +
+                                    "1M (0-5M 20/M/月)" +
+                                    "</option>" +
+                                    "<option value='40'>" +
+                                    "2M (0-5M 20/M/月)" +
+                                    "</option>" +
+                                    "<option value='60'>" +
+                                    "3M (0-5M 20/M/月)" +
+                                    "</option>" +
+                                    "</optgroup>"
+                            }else if(isStandard.productId === "1011401"){
+                                //综合办公
+                            }else if(isStandard.productId === "1011501"){
+                                //手机看店
+                            }else if(isStandard.productId === "1011601"){
+                                //天翼对讲
+                            }else if(isStandard.productId === "1011701"){
+                                //翼讯通
+                            }
+                        }
+                    }
+                        $("#product4").html("<option value='' selected>请选择一个产品套餐</option>"+optionstring);
+                        form.render('select');
+                }
+            });
         });
 
-        //五级联动输出框：资费情况
+        //五级联动输出框：资费情况说明
         form.on('select(product4)',function () {
             var optionstring = "";
-            var product4 = $("#product4").val();
-            if(product4 === "人脸考勤"||product4 === "云WiFi"||product4 === "云会议"
-            ||product4 === "视频会议" || product4 === "综合布线" || product4 ==="IT系统集成"
-            ||product4 === "机房整治" || product4 === "IT代维" || product4 === "云堤"){
-                $("#priceCount").removeAttr("disabled");
-                $("#priceCount").attr("placeholder","请输入每月收费");
-            }else{
-                $("#priceCount").attr("disabled","disabled");
-            }
-
+            var product4 = $("#product3").val();
+            var product5 = $("#product4").val();
+            $.ajax({
+                type:'POST',
+                url:'getIsStandardProduct?productId='+product4,
+                dataType:'json',
+                async:true,
+                success:function (isStandard) {
+                    if(isStandard == null){
+                        alert("没有数据");
+                    }else{
+                        if(isStandard.isPrice === 0){
+                            $("#priceCount").removeAttr("disabled");
+                            $("#priceCount").val("");
+                            $("#priceCount").attr("placeholder","请输入每月收费");
+                        }else{
+                            $("#priceCount").attr("disabled","disabled");
+                            $("#priceCount").attr("placeholder","展示资费情况");
+                            $("#priceCount").val(product5);
+                        }
+                    }
+                }
+            });
         });
     });
     layui.use('element',function () {

@@ -6,18 +6,19 @@ package com.dict.demo.entity;
  */
 public class Product {
     private int id;
-    private int serviceId;
-    private String serviceScope;
+    private String scopeId;
+    private String scopeName;
+    private String serviceId;
     private String serviceName;
     private String serviceTagline;
-    private int productId;
+    private String productId;
     private String productName;
     private int isStandard;
     private String productFunction;
     private String productFunctionDes;
+    private int isPrice;
     private String price;
     private String label;
-
 
     public int getId() {
         return id;
@@ -27,20 +28,28 @@ public class Product {
         this.id = id;
     }
 
-    public int getServiceId() {
+    public String getScopeId() {
+        return scopeId;
+    }
+
+    public void setScopeId(String scopeId) {
+        this.scopeId = scopeId;
+    }
+
+    public String getScopeName() {
+        return scopeName;
+    }
+
+    public void setScopeName(String scopeName) {
+        this.scopeName = scopeName;
+    }
+
+    public String getServiceId() {
         return serviceId;
     }
 
-    public void setServiceId(int serviceId) {
+    public void setServiceId(String serviceId) {
         this.serviceId = serviceId;
-    }
-
-    public String getServiceScope() {
-        return serviceScope;
-    }
-
-    public void setServiceScope(String serviceScope) {
-        this.serviceScope = serviceScope;
     }
 
     public String getServiceName() {
@@ -59,11 +68,11 @@ public class Product {
         this.serviceTagline = serviceTagline;
     }
 
-    public int getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
@@ -97,6 +106,14 @@ public class Product {
 
     public void setProductFunctionDes(String productFunctionDes) {
         this.productFunctionDes = productFunctionDes;
+    }
+
+    public int getIsPrice() {
+        return isPrice;
+    }
+
+    public void setIsPrice(int isPrice) {
+        this.isPrice = isPrice;
     }
 
     public String getPrice() {
