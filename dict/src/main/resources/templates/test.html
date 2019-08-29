@@ -52,6 +52,36 @@
                 <input name="priceCount" id="priceCount" lay-verify="required" placeholder="展示资费情况" class="layui-input" disabled oninput="value=value.replace(/[^\d]/g,'')"/>
             </div>
         </div>
+<!--        云桌面 --- start  -->
+        <div class="layui-form-item" id="yun_desktop_EBW"></div>
+        <div class="layui-form-item" id="yun_desktop_NGW"></div>
+        <div class="layui-form-item" id="ExportBandWidth">
+            <label class="layui-form-label">出口带宽</label>
+            <div class="layui-input-inline">
+                <div class="layui-input-inline">
+                    <input name="EBW" id="EBW" lay-verify="required" placeholder="输入出口带宽(单位:M)" class="layui-input" oninput="value=value.replace(/[^\d]/g,'')"/>
+                </div>
+            </div>
+            <label class="layui-form-label">每月资费</label>
+            <div class="layui-input-inline">
+                <input name="EBWpriceCount" id="EBWpriceCount" lay-verify="required" placeholder="出口带宽每月费用" class="layui-input" disabled oninput="value=value.replace(/[^\d]/g,'')"/>
+            </div>
+        </div>
+        <div class="layui-form-item" id="NATGateWay">
+            <label class="layui-form-label">NAT网关</label>
+            <div class="layui-input-inline">
+                <select name="NGW" id="NGW" lay-filter="NGW" lay-verify="required" >
+                    <option value="">请选择一个NET网关套餐</option>
+                    <option value="360">小型12/天</option>
+                </select>
+            </div>
+            <label class="layui-form-label">每月资费</label>
+            <div class="layui-input-inline">
+                <input name="NGWpriceCount" id="NGWpriceCount" lay-verify="required" placeholder="NAT网关每月费用" class="layui-input" disabled oninput="value=value.replace(/[^\d]/g,'')"/>
+            </div>
+        </div>
+
+<!--        云桌面 --- end  -->
 
         <div class="layui-form-item">
             <label class="layui-form-label">使用时长</label>
@@ -81,6 +111,26 @@
 <script th:src="@{/layui/layui.js}"></script>
 <script th:src="@{js/jquery-3.4.1.js}"></script>
 <script>
+    //全局变量
+    var yun_desktop_EBW;//云桌面--出口宽带选项
+    var yun_desktop_NGW;//云桌面--Nat网关选项
+    var q_EBW;
+    var q_NGW;
+
+    layui.use('element',function () {
+        var element = layui.element;
+    });
+
+    $(document).ready(function () {
+        //初始化
+        //云桌面--选项隐藏
+       yun_desktop_EBW = $("#ExportBandWidth").detach();
+       yun_desktop_NGW = $("#NATGateWay").detach();
+        q_EBW = "<div class='layui-form-item' id='ExportBandWidth'>"+
+            yun_desktop_EBW.html()+"</div>";
+        q_NGW = "<div class='layui-form-item' id='ExportBandWidth'>"+
+            yun_desktop_NGW.html()+"</div>";
+    });
     layui.use('form',function () {
         var form = layui.form;
         //监听提交
@@ -102,7 +152,7 @@
                       alert("没有数据");
                   }else{
                       for(var i=0;i<second.length;i++){
-                          if(second[i].scopeId === product1){
+                          if(second[i].scopeId == product1){
                               optionstring += "<option value='"+second[i].serviceId+"'>"+second[i].serviceName+"</option>";
                           }
                       }
@@ -127,7 +177,7 @@
                         alert("没有数据");
                     }else{
                         for(var i=0;i<third.length;i++){
-                            if(third[i].serviceId === product2){
+                            if(third[i].serviceId == product2){
                                 optionstring += "<option value='"+third[i].productId+"'>"+third[i].productName+"</option>";
                             }
                         }
@@ -151,11 +201,13 @@
                     if(isStandard == null){
                         alert("没有数据");
                     }else{
-                        if(isStandard.isPrice === 0){
+                        if(isStandard.isPrice == 0){
                             optionstring += "<option value='"+isStandard.productId+"'>按项目方案报价</option>";
                         }else{
-                            if(isStandard.productId === "1011301"){
+                            if(isStandard.productId == "1011301"){
                                 //云桌面
+                                $("#yun_desktop_EBW").html(q_EBW);
+                                $("#yun_desktop_NGW").html(q_NGW);
                                 optionstring +=
                                     "<optgroup label='云桌面基础配置'>" +
                                         "<option value='204'>" +
@@ -167,26 +219,22 @@
                                         "<option value='691'>" +
                                             "旗舰型691元/月：8VPU,16GB内存，80GB系统盘SAS，操作系统Windows  Server 2008 R2 含Windows 7 体验桌面" +
                                         "</option>" +
-                                    "</optgroup>"+
-                                    "<optgroup label='出口带宽'>" +
-                                    "<option value='20'>" +
-                                    "1M (0-5M 20/M/月)" +
-                                    "</option>" +
-                                    "<option value='40'>" +
-                                    "2M (0-5M 20/M/月)" +
-                                    "</option>" +
-                                    "<option value='60'>" +
-                                    "3M (0-5M 20/M/月)" +
-                                    "</option>" +
-                                    "</optgroup>"
-                            }else if(isStandard.productId === "1011401"){
+                                    "</optgroup>";
+                            }else{
+                                //如果不为云桌面，隐藏相关产品信息
+                                yun_desktop_EBW = $("#ExportBandWidth").detach();
+                                yun_desktop_NGW = $("#NATGateWay").detach();
+                            }
+                            if(isStandard.productId == "1011401"){
                                 //综合办公
-                            }else if(isStandard.productId === "1011501"){
+                            }else if(isStandard.productId == "1011501"){
                                 //手机看店
-                            }else if(isStandard.productId === "1011601"){
+                            }else if(isStandard.productId == "1011601"){
                                 //天翼对讲
-                            }else if(isStandard.productId === "1011701"){
+                            }else if(isStandard.productId == "1011701"){
                                 //翼讯通
+                            }else {
+
                             }
                         }
                     }
@@ -210,7 +258,7 @@
                     if(isStandard == null){
                         alert("没有数据");
                     }else{
-                        if(isStandard.isPrice === 0){
+                        if(isStandard.isPrice == 0){
                             $("#priceCount").removeAttr("disabled");
                             $("#priceCount").val("");
                             $("#priceCount").attr("placeholder","请输入每月收费");
@@ -223,10 +271,25 @@
                 }
             });
         });
+        //六级联动----云桌面
+        form.on('select(NGW)',function () {
+            var NGW = $("#NGW").val();
+            $("#NGWpriceCount").val(NGW);
+        });
     });
-    layui.use('element',function () {
-        var element = layui.element;
+
+    //云桌面---出口带宽
+    $("#EBW").on("input",function (e) {
+        var EBWpriceCount = e.delegateTarget.value;
+        if(EBWpriceCount<=5 && EBWpriceCount>0){
+            $("#EBWpriceCount").val(EBWpriceCount*20);
+        }else if(EBWpriceCount>5){
+            $("#EBWpriceCount").val(EBWpriceCount*36);
+        }else {
+            $("#EBWpriceCount").attr('placeholder',"请输入正确的带宽");
+        }
     });
+
 </script>
 </body>
 </html>
