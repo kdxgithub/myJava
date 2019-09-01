@@ -38,7 +38,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getIsStandardProduct(String productId) {
-        return productMapper.getIsStandardProduct(productId);
+    public Product getIsStandardProduct(String productName) {
+        return productMapper.getIsStandardProduct(productName);
     }
 }

@@ -78,8 +78,8 @@ public class ProductController {
 
     @RequestMapping(value = "getIsStandardProduct")
     @ResponseBody
-    public Product getIsStandardProduct(String productId){
-        Product product = productService.getIsStandardProduct(productId);
+    public Product getIsStandardProduct(String productName){
+        Product product = productService.getIsStandardProduct(productName);
         return product;
     }
 }

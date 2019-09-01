@@ -52,6 +52,6 @@ public interface ProductMapper {
      * @author  CDDX
      * @date  2019/8/28 15:03
      */
-    Product getIsStandardProduct(@Param("productId")String productId);
+    Product getIsStandardProduct(@Param("productName")String productName);
 
 }

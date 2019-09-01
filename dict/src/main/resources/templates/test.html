@@ -14,14 +14,14 @@
         <div class="layui-form-item">
             <label class="layui-form-label" >服务场景</label>
             <div class="layui-input-inline">
-                <select name="服务场景编号" id="product1" lay-filter="product1" lay-verify="required">
+                <select name="scope_name" id="product1" lay-filter="product1" lay-verify="required">
                     <option value="">请选择一个服务场景</option>
-                    <option th:each="scope:${firstList}" th:value="${scope.getScopeId()}" th:text="${scope.getScopeName()}">行政办公</option>
+                    <option th:each="scope:${firstList}" th:value="${scope.getScopeName()}" th:text="${scope.getScopeName()}">行政办公</option>
                 </select>
             </div>
             <label class="layui-form-label">服务名称</label>
             <div class="layui-input-inline">
-                <select name="服务名称编号" id="product2" lay-filter="product2" lay-verify="required">
+                <select name="service_name" id="product2" lay-filter="product2" lay-verify="required">
                     <option value="">请选择一个服务名称</option>
                 </select>
             </div>
@@ -29,7 +29,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">产品名称</label>
             <div class="layui-input-inline">
-                <select name="产品名称编号" id="product3" lay-filter="product3" lay-verify="required" >
+                <select name="product_name" id="product3" lay-filter="product3" lay-verify="required" >
                     <option value="">请选择一个产品名称</option>
                 </select>
             </div>
@@ -236,8 +236,8 @@
             //layer.msg(JSON.stringify(data.field));
 
             var data1 = data.field;
-            $("#priceCounts").append(data1.服务场景编号+"\n");
-            console.log(data1);
+            $("#priceCounts").append(JSON.stringify(data1)+"\n");
+            //console.log(data1);
             return false;
         });
         //二级联动下拉列表：服务名称选择
@@ -254,8 +254,8 @@
                       alert("没有数据");
                   }else{
                       for(var i=0;i<second.length;i++){
-                          if(second[i].scopeId == product1){
-                              optionstring += "<option value='"+second[i].serviceId+"'>"+second[i].serviceName+"</option>";
+                          if(second[i].scopeName == product1){
+                              optionstring += "<option value='"+second[i].serviceName+"'>"+second[i].serviceName+"</option>";
                           }
                       }
                       $("#product2").html("<option value='' selected>请选择服务名称</option>"+optionstring);
@@ -279,8 +279,8 @@
                         alert("没有数据");
                     }else{
                         for(var i=0;i<third.length;i++){
-                            if(third[i].serviceId == product2){
-                                optionstring += "<option value='"+third[i].productId+"'>"+third[i].productName+"</option>";
+                            if(third[i].serviceName == product2){
+                                optionstring += "<option value='"+third[i].productName+"'>"+third[i].productName+"</option>";
                             }
                         }
                         $("#product3").html("<option value='' selected>请选择产品名称</option>"+optionstring);
@@ -304,7 +304,7 @@
             var product3 = $("#product3").val();
             $.ajax({
                 type:'POST',
-                url:'getIsStandardProduct?productId='+product3,
+                url:'getIsStandardProduct?productName='+product3,
                 dataType:'json',
                 async:true,
                 success:function (isStandard) {
@@ -363,7 +363,7 @@
             var product5 = $("#product4").val();
             $.ajax({
                 type:'POST',
-                url:'getIsStandardProduct?productId='+product4,
+                url:'getIsStandardProduct?productName='+product4,
                 dataType:'json',
                 async:true,
                 success:function (isStandard) {

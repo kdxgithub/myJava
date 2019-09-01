@@ -41,7 +41,7 @@
     <select id="getIsStandardProduct" resultMap="BaseResultMap">
         select product.product_id,product.product_name,product.is_price
         from product
-        where product.product_id = #{productId}
+        where product.product_name = #{productName}
     </select>
 
 </mapper>

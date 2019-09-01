@@ -43,11 +43,11 @@ public interface ProductService {
     List<Product> getAllIsNotStandardProduct();
 
     /**
-     功能描述 根据 productId 查询是否标准产品
-     * @param productId
+     功能描述 根据 productName 查询是否标准产品
+     * @param productName
      * @return  com.dict.demo.entity.Product
      * @author  CDDX
      * @date  2019/8/28 15:03
      */
-    Product getIsStandardProduct(String productId);
+    Product getIsStandardProduct(String productName);
 }
