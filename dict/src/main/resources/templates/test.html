@@ -14,14 +14,14 @@
         <div class="layui-form-item">
             <label class="layui-form-label" >服务场景</label>
             <div class="layui-input-inline">
-                <select name="scope_name" id="product1" lay-filter="product1" lay-verify="required">
+                <select name="服务场景" id="product1" lay-filter="product1" lay-verify="required">
                     <option value="">请选择一个服务场景</option>
                     <option th:each="scope:${firstList}" th:value="${scope.getScopeName()}" th:text="${scope.getScopeName()}">行政办公</option>
                 </select>
             </div>
             <label class="layui-form-label">服务名称</label>
             <div class="layui-input-inline">
-                <select name="service_name" id="product2" lay-filter="product2" lay-verify="required">
+                <select name="服务名称" id="product2" lay-filter="product2" lay-verify="required">
                     <option value="">请选择一个服务名称</option>
                 </select>
             </div>
@@ -29,7 +29,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">产品名称</label>
             <div class="layui-input-inline">
-                <select name="product_name" id="product3" lay-filter="product3" lay-verify="required" >
+                <select name="产品名称" id="product3" lay-filter="product3" lay-verify="required" >
                     <option value="">请选择一个产品名称</option>
                 </select>
             </div>
@@ -47,7 +47,7 @@
                     <option value="">请选择一个产品套餐</option>
                 </select>
             </div>
-            <label class="layui-form-label">每月资费</label>
+            <label class="layui-form-label">每月资费(元)</label>
             <div class="layui-input-inline">
                 <input name="产品套餐每月资费" id="priceCount" lay-verify="required" placeholder="展示资费情况" class="layui-input" disabled oninput="value=value.replace(/[^\d]/g,'')"/>
             </div>
@@ -55,13 +55,13 @@
 <!--        云桌面 --- start  -->
         <div class="layui-form-item" id="yun_temp"></div>
         <div class="layui-form-item" id="ExportBandWidth">
-            <label class="layui-form-label">出口带宽</label>
+            <label class="layui-form-label">出口带宽(M)</label>
             <div class="layui-input-inline">
                 <div class="layui-input-inline">
                     <input name="出口带宽" id="EBW" lay-verify="required" placeholder="输入出口带宽(单位:M)" class="layui-input" oninput="value=value.replace(/[^\d]/g,'')"/>
                 </div>
             </div>
-            <label class="layui-form-label">每月资费</label>
+            <label class="layui-form-label">每月资费(元)</label>
             <div class="layui-input-inline">
                 <input name="出口带宽每月资费" id="EBWpriceCount" lay-verify="required" placeholder="出口带宽每月费用" class="layui-input" disabled oninput="value=value.replace(/[^\d]/g,'')"/>
             </div>
@@ -74,7 +74,7 @@
                     <option value="360">小型12/天</option>
                 </select>
             </div>
-            <label class="layui-form-label">每月资费</label>
+            <label class="layui-form-label">每月资费(元)</label>
             <div class="layui-input-inline">
                 <input name="NET网关每月资费" id="NGWpriceCount" lay-verify="required" placeholder="NAT网关每月费用" class="layui-input" disabled oninput="value=value.replace(/[^\d]/g,'')"/>
             </div>
@@ -110,7 +110,7 @@
                     <option value="120">120元/户/月，600G云空间/90天有效存储</option>
                 </select>
             </div>
-            <label class="layui-form-label">每月资费</label>
+            <label class="layui-form-label">每月资费(元)</label>
             <div class="layui-input-inline">
                 <input name="云存储每月资费" id="CSCpriceCount" lay-verify="required" placeholder="云存储每月费用" class="layui-input" disabled oninput="value=value.replace(/[^\d]/g,'')"/>
             </div>
@@ -161,7 +161,7 @@
             <legend>报账展示</legend>
         </fieldset>
         <textarea name="priceCounts" id="priceCounts" disabled placeholder="请提交" class="layui-textarea"></textarea>
-
+        <table id="demo" lay-filter="demo" class="layui-table"></table>
     </div>
 
 <script th:src="@{/layui/layui.js}"></script>
@@ -228,16 +228,33 @@
             "<div class='layui-form-item' id='yun_customer_SMS'>"+
             yun_customer_SMS.html()+"</div>";
     });
-    layui.use('form',function () {
+    layui.use(['form','table'],function () {
         var form = layui.form;
+        var table = layui.table;
         //监听提交
         form.on('submit(formDemo)',function(data){
-            //priceCounts = JSON.stringify(data.field);
-            //layer.msg(JSON.stringify(data.field));
+            priceCounts = JSON.stringify(data.field);
+            var _priceCounts = JSON.parse(priceCounts);
+            var tableThString="";
+            var tableTrString="";
+            $.each(_priceCounts,function (key,value) {
+                $("#priceCounts").append(key+" : "+value+" ,");
+                tableThString +=
+                    "<th>"+key+"</th>";
+                tableTrString +=
+                    "<th>"+value+"</th>";
+            });
+            if(tableTrString !== null && tableThString !== null){
+                var counts = _priceCounts.需求数量*_priceCounts.产品套餐每月资费
+                        *_priceCounts.使用时长*_priceCounts.折扣/100;
 
-            var data1 = data.field;
-            $("#priceCounts").append(JSON.stringify(data1)+"\n");
-            //console.log(data1);
+                var tableString =
+                    "<thead>"+tableThString+"<th>合计</th>"+"</thead>"+
+                    "<tbody>"+tableTrString+"<th>"+counts+"</th>"+"</tbody>"
+                ;
+                $("#demo").append(tableString);
+            }
+            $("#priceCounts").append("\n");
             return false;
         });
         //二级联动下拉列表：服务名称选择
@@ -313,7 +330,7 @@
                     }else{
                         hideAllisPrice();//隐藏所有 isPrice == 1 的产品选项
                         if(isStandard.isPrice == 0){
-                            productInfo += "<option value='"+isStandard.productId+"'>按项目方案报价</option>";
+                            productInfo += "<option value='按项目方案报价'>按项目方案报价</option>";
                         }else{ //isStandard.isPrice == 1
                             //2、根据 productId 确定需要显示的产品选项
                             if(isStandard.productId == "1011301"){
@@ -385,8 +402,14 @@
         });
         //六级联动----云桌面
         form.on('select(NGW)',function () {
-            var NGW = $("#NGW").val();
-            $("#NGWpriceCount").val(NGW);
+            var NGWValue = $("#NGW").val();
+            var NGWText = $("#NGW option:selected").text();
+            var NGWpriceCountValue = $("#NGWpriceCount").val();
+            alert("NGWpriceCountValue = "+NGWpriceCountValue+
+                ", NGWValue = "+NGWValue+
+                ", NGWText = "+NGWText);
+            $("#NGWpriceCount").val(NGWValue);
+            //$("#NGW option:selected").attr("value",NGWText);
         });
         //六级联动----云监控
         form.on('select(CSC)',function () {
