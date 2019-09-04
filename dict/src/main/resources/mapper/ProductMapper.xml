@@ -28,7 +28,7 @@
     </select>
 
     <select id="getAllProductName" resultMap="BaseResultMap">
-        select distinct product.service_id,product.service_name,product.product_id,product.product_name,product.product_function,product.product_function_des
+        select distinct product.service_id,product.service_name,product.product_id,product.product_name,product.product_function,product.product_function_des,product.price
         from product
     </select>
 
