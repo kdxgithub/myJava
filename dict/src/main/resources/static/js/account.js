@@ -23,6 +23,7 @@ var q_CSMS;//记录 云客服--短信包选项的 html 代码
 var productInfo;
 var priceCounts;
 var AllPriceCounts = 0.0;
+var number=0;//记录添加的产品序号
 
 $(document).ready(function () {
     //初始化
@@ -67,11 +68,12 @@ layui.use(['form','table','element'],function () {
         var _priceCounts = JSON.parse(priceCounts);
         var tableThString="";
         var tableTrString="";
+        number++;
         $.each(_priceCounts,function (key,value) {
             tableThString +=
-                "<th>"+key+"</th>";
+                "<th style='min-width: 80px;'>"+key+"</th>";
             tableTrString +=
-                "<th>"+value+"</th>";
+                "<td>"+value+"</td>";
         });
         if(tableTrString !== null && tableThString !== null){
             if(_priceCounts.hasOwnProperty("出口带宽每月资费")){
@@ -96,12 +98,13 @@ layui.use(['form','table','element'],function () {
             $("#AllPriceCounts").html("合计："+AllPriceCounts+"元");
 
             var tableString =
-                "<thead>"+tableThString+"<th>合计</th>"+"</thead>"+
-                "<tbody>"+tableTrString+"<th>"+counts+"</th>"+"</tbody>"
+                "<thead><tr><th>序号</th>"+tableThString+"<th>合计</th>"+"</tr></thead>"+
+                "<tbody><tr><td>"+number+"</td>"+tableTrString+"<td>"+counts+"</td>"+"</tr></tbody>"
             ;
+            var browser_width = $(document.body).width();
+            $("#divTable").css("width",browser_width);
             $("#demo").append(tableString);
         }
-        //$("#priceCounts").append("\n");
         return false;
     });
     //清空购物栏

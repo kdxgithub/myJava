@@ -1,70 +1,58 @@
 package com.dict.demo.entity;
 
 public class User {
-    private int userId;
-    private String userName;
-    private String userPassword;
-    private int userState;
-    private String userPhone;
-    private String userNickname;
+    private int Id;
+    private String name;
+    private String password;
+    private int state;
+    private String phone;
+    private String nickname;
 
-    public int getUserId() {
-        return userId;
+    public int getId() {
+        return Id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setId(int id) {
+        Id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public int getUserState() {
-        return userState;
+    public int getState() {
+        return state;
     }
 
-    public void setUserState(int userState) {
-        this.userState = userState;
+    public void setState(int state) {
+        this.state = state;
     }
 
-    public String getUserPhone() {
-        return userPhone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getUserNickname() {
-        return userNickname;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setUserNickname(String userNickname) {
-        this.userNickname = userNickname;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", userPassword='" + userPassword + '\'' +
-                ", userState=" + userState +
-                ", userPhone='" + userPhone + '\'' +
-                ", userNickname='" + userNickname + '\'' +
-                '}';
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

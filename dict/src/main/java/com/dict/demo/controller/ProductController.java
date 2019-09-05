@@ -33,11 +33,6 @@ public class ProductController {
         return "index";
     }
 
-    @RequestMapping(value = "login")
-    public String login(){
-        return "login";
-    }
-
     @RequestMapping(value = "item")
     public String item(){
         return "item";

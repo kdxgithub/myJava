@@ -3,6 +3,9 @@ layui.use('element',function () {
     element.init();
     $("#Account").hide();
     $("#showLeftBody").hide();
+    $("#leftBody").css("width",100+"px");
+    $(".layui-body").css("left",100+"px");
+    $(".layui-footer").css("left",100+"px");
 
     //隐藏和显示侧边栏
     $("#hideLeftBody").on('click',function () {
@@ -26,12 +29,14 @@ layui.use('element',function () {
     function hideLeftBody() {
         $("#leftBody").animate({width:'0px'});
         $(".layui-body").animate({left:'0px'});
+        $(".layui-footer").animate({left:'0px'});
         $("#showLeftBody").show();
         $("#hideLeftBody").hide();
     }
     function showLeftBody() {
-        $("#leftBody").animate({width:'200px'});
-        $(".layui-body").animate({left:'200px'});
+        $("#leftBody").animate({width:'100px'});
+        $(".layui-body").animate({left:'100px'});
+        $(".layui-footer").animate({left:'0px'});
         $("#hideLeftBody").show();
         $("#showLeftBody").hide();
     }

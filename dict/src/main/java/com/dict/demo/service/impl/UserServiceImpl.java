@@ -13,25 +13,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserInfo() {
-        User user = new User();
-        user.setUserName("hahah");
-        user.setUserNickname("asdasdad");
-        return user;
+        return null;
     }
     @Override
     public void addUser(){
-        String username = "kkk";
-        String password = "666888";
-        int state = 1;
-        String phone = "18899992222";
-        String nickname = "小可可";
+    }
 
-        User user = new User();
-        user.setUserName(username);
-        user.setUserPassword(password);
-        user.setUserState(state);
-        user.setUserPhone(phone);
-        user.setUserNickname(nickname);
-        userMapper.addUser(user);
+    @Override
+    public User findByPhone(String phone) {
+        return userMapper.findByPhone(phone);
     }
 }

@@ -272,9 +272,11 @@
                         <legend>报账展示</legend>
                     </fieldset>
                     <!--        <textarea name="priceCounts" id="priceCounts" disabled placeholder="请提交" class="layui-textarea"></textarea>-->
-                    <table id="demo" lay-filter="demo" class="layui-table" lay-skin="line">
+                    <div style="overflow: scroll" id="divTable">
+                        <table id="demo" lay-filter="demo" class="layui-table" lay-skin="line">
 
-                    </table>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -290,5 +292,6 @@
     <script th:src="@{/layui/layui.js}"></script>
     <script th:src="@{js/account.js}"></script>
     <script th:src="@{js/select.js}"></script>
+    <script th:src="@{js/myJs.js}"></script>
 </body>
 </html>
