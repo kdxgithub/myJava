@@ -16,14 +16,22 @@ public interface UserService {
     /**
      * 添加用户
      */
-    void addUser();
+    boolean addUser(User user);
 
     /**
-    功能描述:通过手机号查询用户信息
-     * @param
+    功能描述:通过phone查找用户，并返回用户信息用于验证登录
+     * @param phone
      * @return  com.dict.demo.entity.User
      * @author  CDDX
-     * @date  2019/9/5 17:20
+     * @date  2019/9/6 9:33
      */
-    User findByPhone(String phone);
+    User login(String phone);
+    /**
+     功能描述:根据phone来查找用户是否存在
+     * @param phone
+     * @return  boolean
+     * @author  CDDX
+     * @date  2019/9/6 14:48
+     */
+    boolean findUserByPhone(String phone);
 }

@@ -98,7 +98,8 @@ layui.use(['form','table','element'],function () {
             $("#AllPriceCounts").html("合计："+AllPriceCounts+"元");
 
             var tableString =
-                "<thead><tr><th>序号</th>"+tableThString+"<th>合计</th>"+"</tr></thead>"+
+                "<thead><tr><th>序号</th>"+tableThString+"<th>合计</th>"+
+                "</tr></thead>"+
                 "<tbody><tr><td>"+number+"</td>"+tableTrString+"<td>"+counts+"</td>"+"</tr></tbody>"
             ;
             var browser_width = $(document.body).width();
@@ -112,6 +113,7 @@ layui.use(['form','table','element'],function () {
         $("#demo").html("");
         $("#AllPriceCounts").html("合计");
         AllPriceCounts = 0.0;
+        number = 0;
     });
     //二级联动下拉列表：服务名称选择
     form.on('select(product1)',function () {

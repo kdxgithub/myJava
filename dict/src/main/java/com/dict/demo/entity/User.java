@@ -2,11 +2,10 @@ package com.dict.demo.entity;
 
 public class User {
     private int Id;
-    private String name;
-    private String password;
-    private int state;
     private String phone;
-    private String nickname;
+    private String password;
+    private String name;
+    private int state;
 
     public int getId() {
         return Id;
@@ -48,11 +47,4 @@ public class User {
         this.phone = phone;
     }
 
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
 }

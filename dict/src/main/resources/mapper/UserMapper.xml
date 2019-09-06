@@ -2,20 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dict.demo.mapper.UserMapper">
     <resultMap id="BaseResultMap" type="com.dict.demo.entity.User">
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="state" jdbcType="INTEGER" property="state"/>
-        <result column="phone" jdbcType="VARCHAR" property="phone"/>
-        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
     </resultMap>
 
     <insert id="addUser" parameterType="com.dict.demo.entity.User">
-        INSERT into user(name,password,state,phone,nickname)
-        values (#{name},#{password},#{state},#{phone},#{nickname})
+        INSERT into user(phone,password,name,state)
+        values (#{phone},#{password},#{name},#{state})
     </insert>
 
-    <select id="findByPhone" resultMap="BaseResultMap">
+    <select id="login" resultMap="BaseResultMap">
         select * from user
+        where phone = #{phone}
+    </select>
+
+    <select id="findUserByPhone" resultMap="BaseResultMap">
+        select * from  user
         where phone = #{phone}
     </select>
 </mapper>

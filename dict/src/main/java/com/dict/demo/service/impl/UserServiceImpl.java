@@ -16,11 +16,25 @@ public class UserServiceImpl implements UserService {
         return null;
     }
     @Override
-    public void addUser(){
+    public boolean addUser(User user){
+        boolean isSuccess = false;
+        if(userMapper.addUser(user)>0){
+            isSuccess = true;
+        }
+        return isSuccess;
     }
 
     @Override
-    public User findByPhone(String phone) {
-        return userMapper.findByPhone(phone);
+    public User login(String phone) {
+        return userMapper.login(phone);
+    }
+
+    @Override
+    public boolean findUserByPhone(String phone) {
+        boolean isSuccess = false;
+        if(userMapper.findUserByPhone(phone)!= null){
+            isSuccess = true;
+        }
+        return isSuccess;
     }
 }

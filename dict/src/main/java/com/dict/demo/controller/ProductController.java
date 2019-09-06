@@ -22,7 +22,7 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @RequestMapping(value = "getAllServiceScope")
+    @RequestMapping(value = "goIndex")
     public String getAllServiceScope(Model model){
         List<Product> firstList = productService.getAllServiceScope();
         List<Product> secondList = productService.getAllServiceName();
@@ -36,18 +36,6 @@ public class ProductController {
     @RequestMapping(value = "item")
     public String item(){
         return "item";
-    }
-
-    @RequestMapping(value = "test")
-    public String test(Model model){
-        List<Product> firstList = productService.getAllServiceScope();
-        List<Product> secondList = productService.getAllServiceName();
-        List<Product> thirdList = productService.getAllProductName();
-        model.addAttribute("secondList",secondList);
-        model.addAttribute("firstList",firstList);
-        model.addAttribute("thirdList",thirdList);
-
-        return "test";
     }
 
     @RequestMapping(value = "getSecondList")

@@ -35,14 +35,18 @@
 <!--                </li>-->
             </ul>
             <ul class="layui-nav layui-layout-right">
-                <li class="layui-nav-item">
-                    <a href="javascript:;">aaa 闲心</a>
+                <li class="layui-nav-item" th:if="${user ne null}">
+                    <a href="javascript:;" th:text="${user.name}">请登录</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="">基本资料</a></dd>
-                        <dd><a href="">安全设置</a></dd>
+                        <dd><a href="javascript:;">基本资料</a></dd>
+                        <dd><a href="javascript:;">安全设置</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="">退了</a> </li>
+                <li class="layui-nav-item" th:if="${user ne null}"><a href="/outLogin" methods="post">退出</a> </li>
+                <li class="layui-nav-item" th:if="${user eq null}">
+                    <a href="/loginUI" methods="post">请登录</a>
+                    <button data-method="notice" class="layui-btn" id="noUser">示范一个公告层</button>
+                </li>
             </ul>
         </div>
 
@@ -293,5 +297,11 @@
     <script th:src="@{js/account.js}"></script>
     <script th:src="@{js/select.js}"></script>
     <script th:src="@{js/myJs.js}"></script>
+
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
 </body>
 </html>
