@@ -20,7 +20,7 @@ public class UserController {
         return "login";
     }
 
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @RequestMapping(value = "/login")
     public String login(HttpServletRequest request, Model model){
         String phone = request.getParameter("phone");
         String password = request.getParameter("password");
