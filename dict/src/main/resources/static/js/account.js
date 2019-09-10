@@ -115,6 +115,7 @@ layui.use(['form','table','element'],function () {
         AllPriceCounts = 0.0;
         number = 0;
     });
+
     //二级联动下拉列表：服务名称选择
     form.on('select(product1)',function () {
         var optionstring = "";
