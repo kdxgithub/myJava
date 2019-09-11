@@ -6,172 +6,117 @@
     <link th:href="@{/layui/css/layui.css}" rel="stylesheet" />
 </head>
 <body>
-    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend>报账系统</legend>
-    </fieldset>
+    <div class="layui-container">
+        <div class="layui-row">
+            <table id="demo" lay-filter="test" class="layui-table">
+                <thead>
+                    <tr>
+                        <th lay-data="{field:'username',width:150}" rowspan="2">联系人</th>
+                        <th lay-data="{field:'center'}" colspan="4">地址</th>
+                        <th lay-data="{field:'amount',width:120}" rowspan="2">金额</th>
+                    </tr>
+                    <tr>
+                        <th lay-data="{field:'province',width:120}">省</th>
+                        <th lay-data="{field:'city',width:120}">市</th>
+                        <th lay-data="{field:'zone',width:120}">区</th>
+                        <th lay-data="{field:'zone',width:120}">县</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <table id="test2" lay-filter="test2" class="layui-hide">
 
-    <form class="layui-form" action="">
-        <div class="layui-form-item">
-            <label class="layui-form-label" >服务场景</label>
-            <div class="layui-input-inline">
-                <select name="服务场景" id="product1" lay-filter="product1" lay-verify="required">
-                    <option value="">请选择一个服务场景</option>
-                    <option th:each="scope:${firstList}" th:value="${scope.getScopeName()}" th:text="${scope.getScopeName()}">行政办公</option>
-                </select>
-            </div>
-            <label class="layui-form-label">服务名称</label>
-            <div class="layui-input-inline">
-                <select name="服务名称" id="product2" lay-filter="product2" lay-verify="required">
-                    <option value="">请选择一个服务名称</option>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">产品名称</label>
-            <div class="layui-input-inline">
-                <select name="产品名称" id="product3" lay-filter="product3" lay-verify="required" >
-                    <option value="">请选择一个产品名称</option>
-                </select>
-            </div>
-            <label class="layui-form-label">需求数量</label>
-            <div class="layui-input-inline">
-                <input name="需求数量" lay-verify="required" placeholder="请输入数量" class="layui-input" oninput="value=value.replace(/[^\d]/g,'')" />
-            </div>
-<!--            <div class="layui-form-mid layui-word-aux">辅助文字</div>-->
-        </div>
+            </table>
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">套餐选择</label>
-            <div class="layui-input-inline">
-                <select name="产品套餐" id="product4" lay-filter="product4" lay-verify="required" >
-                    <option value="">请选择一个产品套餐</option>
-                </select>
-            </div>
-            <label class="layui-form-label">每月资费(元)</label>
-            <div class="layui-input-inline">
-                <input name="产品套餐每月资费" id="priceCount" lay-verify="required" placeholder="展示资费情况" class="layui-input" disabled oninput="value=value.replace(/[^\d]/g,'')"/>
-            </div>
-        </div>
-<!--        云桌面 --- start  -->
-        <div class="layui-form-item" id="yun_temp"></div>
-        <div class="layui-form-item" id="ExportBandWidth">
-            <label class="layui-form-label">出口带宽(M)</label>
-            <div class="layui-input-inline">
-                <div class="layui-input-inline">
-                    <input name="出口带宽" id="EBW" lay-verify="required" placeholder="输入出口带宽(单位:M)" class="layui-input" oninput="value=value.replace(/[^\d]/g,'')"/>
-                </div>
-            </div>
-            <label class="layui-form-label">每月资费(元)</label>
-            <div class="layui-input-inline">
-                <input name="出口带宽每月资费" id="EBWpriceCount" lay-verify="required" placeholder="出口带宽每月费用" class="layui-input" disabled oninput="value=value.replace(/[^\d]/g,'')"/>
-            </div>
-        </div>
-        <div class="layui-form-item" id="NATGateWay">
-            <label class="layui-form-label">NAT网关</label>
-            <div class="layui-input-inline">
-                <select name="NAT网关套餐" id="NGW" lay-filter="NGW" lay-verify="required" >
-                    <option value="">请选择一个NET网关套餐</option>
-                    <option value="小型12元/天">小型12元/天</option>
-                </select>
-            </div>
-            <label class="layui-form-label">每月资费(元)</label>
-            <div class="layui-input-inline">
-                <input name="NET网关每月资费" id="NGWpriceCount" lay-verify="required" placeholder="NAT网关每月费用" class="layui-input" disabled oninput="value=value.replace(/[^\d]/g,'')"/>
-            </div>
-        </div>
-        <div class="layui-form-item" id="DataSet">
-            <label class="layui-form-label">数据盘(可选)</label>
-            <div class="layui-input-inline">
-                <input type="checkbox" name="数据盘" title="0.3/G/月" value="0.3/G/月"/>
-            </div>
-        </div>
-<!--        云桌面 --- end  -->
 
-<!--        云办公 --- start  -->
-        <div class="layui-form-item" id="yun_office_ChatCost">
-            <label class="layui-form-label">通讯费</label>
-            <div class="layui-input-block">
-                <input type="checkbox" name="短信费" title="短信:0.1元/条" value="0.1元/条" checked/>
-                <input type="checkbox" name="彩信费" title="彩信:0.3元/条" value="0.3元/条" checked/>
-            </div>
+            <button id="outToCsv" class="layui-btn">导出为Csv格式</button>
+            <button id="outToExcel" class="layui-btn">导出为Excel格式</button>
+            <button id="showTable" class="layui-btn">显示表格</button>
         </div>
-<!--        云办公 --- end -->
-<!--        云监控 --- start -->
-        <div class="layui-form-item" id="yun_monitoring_CloudStorageCost">
-            <label class="layui-form-label">云储存(可选)</label>
-            <div class="layui-input-inline">
-                <select name="云存储" id="CSC" lay-filter="CSC" lay-verify="required">
-                    <option value="">请选择一个云存储套餐</option>
-                    <option value="0元不需要">不需要</option>
-                    <option value="10元/户/月，50G云空间/7天有效存储">10元/户/月，50G云空间/7天有效存储</option>
-                    <option value="20元/户/月，100G云空间/15天有效存储">20元/户/月，100G云空间/15天有效存储</option>
-                    <option value="40元/户/月，200G云空间/30天有效存储">40元/户/月，200G云空间/30天有效存储</option>
-                    <option value="80元/户/月，400G云空间/60天有效存储">80元/户/月，400G云空间/60天有效存储</option>
-                    <option value="120元/户/月，600G云空间/90天有效存储">120元/户/月，600G云空间/90天有效存储</option>
-                </select>
-            </div>
-            <label class="layui-form-label">每月资费(元)</label>
-            <div class="layui-input-inline">
-                <input name="云存储每月资费" id="CSCpriceCount" lay-verify="required" placeholder="云存储每月费用" class="layui-input" disabled oninput="value=value.replace(/[^\d]/g,'')"/>
-            </div>
-        </div>
-<!--        云监控 --- end -->
-
-<!--        云客服 --- start-->
-        <div class="layui-form-item" id="yun_customer_SMS">
-            <label class="layui-form-label">短信包(可选)</label>
-            <div class="layui-input-inline">
-                <select name="短信包" id="CSMS" lay-filter="CSMS" lay-verify="required">
-                    <option value="">请选择一个短信包套餐</option>
-                    <option value="0不需要">不需要</option>
-                    <option value="短信可选包10元 功能费10元/月，含送200条短信">短信可选包10元 功能费10元/月，含送200条短信</option>
-                    <option value="短信可选包20元 功能费20元/月，含送400条短信">短信可选包20元 功能费20元/月，含送400条短信</option>
-                    <option value="短信可选包50元 功能费50元/月，含送1000条短信">短信可选包50元 功能费50元/月，含送1000条短信</option>
-                    <option value="短信可选包100元 功能费100元/月，含送2000条短信">短信可选包100元 功能费100元/月，含送2000条短信</option>
-                </select>
-            </div>
-            <label class="layui-form-label">每月资费</label>
-            <div class="layui-input-inline">
-                <input name="短信包每月资费" id="CSMSpriceCount" lay-verify="required" placeholder="短信包每月费用" class="layui-input" disabled oninput="value=value.replace(/[^\d]/g,'')"/>
-            </div>
-        </div>
-<!--        云客服 --- end -->
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">使用时长</label>
-            <div class="layui-input-inline">
-                <input name="使用时长" id="time" lay-verify="required" placeholder="单位：月" class="layui-input" oninput="value=value.replace(/[^\d]/g,'')"/>
-            </div>
-            <label class="layui-form-label">折扣(%)</label>
-            <div class="layui-input-inline">
-                <input name="折扣" id="discount" lay-verify="required" placeholder="单位：%" class="layui-input" oninput="value=value.replace(/[^\d]/g,'')"/>
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="formDemo">立即添加</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                <button class="layui-btn" lay-submit lay-filter="cleanDemo">清空购物栏</button>
-            </div>
-        </div>
-    </form>
-
-    <div>
-        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-            <legend id="AllPriceCounts">合计</legend>
-        </fieldset>
-        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-            <legend>报账展示</legend>
-        </fieldset>
-<!--        <textarea name="priceCounts" id="priceCounts" disabled placeholder="请提交" class="layui-textarea"></textarea>-->
-        <table id="demo" lay-filter="demo" class="layui-table" lay-skin="line">
-
-        </table>
     </div>
 
 <script th:src="@{/layui/layui.js}"></script>
 <script th:src="@{js/jquery-3.4.1.js}"></script>
 <script th:src="@{js/account.js}"></script>
+<script>
+    layui.use('table',function () {
+       var table = layui.table;
+
+       $("#showTable").on('click',function () {
+           table.render({
+               elem:'#test2'
+               ,url:'[[@{/json/test1.json}]]'
+               ,toolbar:true
+               ,title:'用户数据表'
+               ,totalRow:true
+               ,width:892
+               ,height:500
+               ,cols: [
+                   [
+                       {field:'序号', title:'序号', width:80,rowspan:3, fixed: 'left', unresize: true, sort: true, totalRowText: '合计行'}
+                       ,{field:'服务场景', title:'服务场景', width:120, edit: 'text',rowspan:3}
+                       ,{field:'服务名称', title:'服务名称', width:150, edit: 'text',rowspan:3}
+                       ,{field:'产品名称', title:'产品名称', width:100,rowspan:3}
+                       ,{field:'需求数量', title:'需求数量', width:100, edit: 'text',rowspan:3}
+                       ,{field:'套餐选择', title:'套餐选择', width:100,colspan:13}
+                       ,{field:'使用时长', title:'使用时长',width:100,rowspan:3}
+                       ,{field:'折扣', title:'折扣', width:80,rowspan:3}
+                       ,{field:'合计', title:'合计', width:100,rowspan:3,totalRow:true}
+                   ]
+                   ,[
+                       {field:'主套餐',title:'主套餐',width:120,colspan:2}
+                       ,{field:'配套套餐',title:'配套套餐',width:120,colspan:4}
+                       ,{field:'可选套餐',title:'可选套餐',width:120,colspan:5}
+                       ,{field:'可选通讯费',title:'可选通讯费',width:120,colspan:2}
+                   ]
+                   ,[
+                       {field:'套餐类型',title:'套餐类型',width:120}
+                       ,{field:'主套餐每月资费',title:'主套餐每月资费',width:120}
+                       ,{field:'出口带宽',title:'出口带宽',width:120}
+                       ,{field:'出口带宽每月资费',title:'出口带宽每月资费',width:120}
+                       ,{field:'NAT网关',title:'NAT网关',width:120}
+                       ,{field:'NAT网关每月资费',title:'NAT网关每月资费',width:120}
+                       ,{field:'数据盘0.3/G/月',title:'数据盘0.3/G/月',width:120}
+                       ,{field:'云存储套餐',title:'云存储套餐',width:120}
+                       ,{field:'云存储每月资费',title:'云存储每月资费',width:120}
+                       ,{field:'短信包',title:'短信包',width:120}
+                       ,{field:'短信包每月资费',title:'短信包每月资费',width:120}
+                       ,{field:'短信0.1元/条',title:'短信0.1元/条',width:120}
+                       ,{field:'彩信0.3元/条',title:'彩信0.3元/条',width:120}
+                   ]
+               ]
+               ,page:true
+               ,response:{
+                   statusCode:200
+               }
+               ,parseData:function (res) {
+                   return{
+                       "code":res.status,
+                       "msg":res.message,
+                       "count":res.total,
+                       "data":res.rows.item
+                   };
+               }
+           });
+       });
+
+
+       $('#outToCsv').on('click',function () {
+           table.exportFile(
+               ['名字','性别','年龄'],
+               [
+                   ['张山','男','20']
+               ],'csv');
+       });
+        $('#outToExcel').on('click',function () {
+            table.exportFile(
+                ['名字','性别','年龄'],
+                [
+                    ['张山','男','20']
+                ],'xls');
+        })
+    });
+</script>
 </body>
 </html>

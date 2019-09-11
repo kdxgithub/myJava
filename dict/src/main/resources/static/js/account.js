@@ -24,6 +24,8 @@ var productInfo;
 var priceCounts;
 var AllPriceCounts = 0.0;
 var number=0;//记录添加的产品序号
+var outThead="";
+var outTbody="";
 
 $(document).ready(function () {
     //初始化
@@ -64,7 +66,7 @@ layui.use(['form','table','element'],function () {
     //监听提交
     form.on('submit(formDemo)',function(data){
         priceCounts = JSON.stringify(data.field);
-        //$("#priceCounts").append(priceCounts+"\n");
+        $("#priceCounts").append(priceCounts+"\n");
         var _priceCounts = JSON.parse(priceCounts);
         var tableThString="";
         var tableTrString="";
@@ -74,7 +76,14 @@ layui.use(['form','table','element'],function () {
                 "<th style='min-width: 80px;'>"+key+"</th>";
             tableTrString +=
                 "<td>"+value+"</td>";
+            outThead +="'"+key+"',";
+            outTbody +="'"+value+"',";
         });
+        outThead = outThead.substring(0,outThead.length-1);
+        outTbody = outTbody.substring(0,outTbody.length-1);
+        outThead = "["+outThead+"],";
+        outTbody = "["+outTbody+"],";
+        console.log(outThead+"\n"+outTbody);
         if(tableTrString !== null && tableThString !== null){
             if(_priceCounts.hasOwnProperty("出口带宽每月资费")){
                 _priceCounts.产品套餐每月资费 =parseInt(_priceCounts.出口带宽每月资费)

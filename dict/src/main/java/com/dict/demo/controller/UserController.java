@@ -76,19 +76,8 @@ public class UserController {
         }
     }
 
-
-
-
-//    @RequestMapping(value = "/getUserItem",method = RequestMethod.GET)
-//    public String getUserItem(){
-//        User user = userService.getUserInfo();
-//        return  user.toString();
-//    }
-//
-//    @RequestMapping(value = "/addUser",method = RequestMethod.GET)
-//    public String addUser(){
-//        userService.addUser();
-//        System.out.println("注册成功！");
-//        return null;
-//    }
+    @RequestMapping(value = "test")
+    public String test(){
+        return "test";
+    }
 }
