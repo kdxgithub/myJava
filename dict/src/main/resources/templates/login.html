@@ -28,10 +28,10 @@
             <legend>登录</legend>
         </fieldset>
         <div class="layui-row">
-            <form class="layui-form layui-col-xs12 layui-col-sm12 layui-col-md8 site-block" action="/login" method="post">
+            <form class="layui-form layui-col-xs12 layui-col-sm6 layui-col-md4 site-block" action="/login" method="post">
                 <div class="layui-form-item">
                     <label class="layui-form-label">手机号</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-inline">
                         <input th:value="${phone}" type="text" name="phone" required  lay-verify="phone" placeholder="请输入用户名" class="layui-input"/>
                     </div>
                 </div>

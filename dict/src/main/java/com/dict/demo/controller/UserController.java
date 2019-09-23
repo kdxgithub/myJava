@@ -15,6 +15,11 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @RequestMapping(value = "/")
+    public String homePage(){
+        return "login";
+    }
+
     @RequestMapping(value = "/loginUI")
     public String loginUI(){
         return "login";
