@@ -2,6 +2,8 @@ package com.dict.demo.service;
 
 import com.dict.demo.entity.Product;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.List;
 
 public interface ProductService {
@@ -50,6 +52,9 @@ public interface ProductService {
      * @date  2019/8/28 15:03
      */
     Product getIsStandardProduct(String productName);
+
+    String getJSON(HttpServletRequest request);
+    void uploadJSON(File file,String jsonStr);
 
 
 
