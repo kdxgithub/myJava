@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void uploadJSON(File json,String jsonStr) {
+    public void uploadJSON(File json,String jsonStr,String counts) {
         try{
             RandomAccessFile raf = new RandomAccessFile(json,"rw");
             raf.seek(json.length()-4);
@@ -78,8 +78,9 @@ public class ProductServiceImpl implements ProductService {
             if(text.equals("}")){
                 raf.write(head.getBytes());
             }
-            String foot="]}}";
+            String foot=",\"合计\":\""+counts+"\"}]}}";
             raf.write(jsonStr.getBytes());
+            raf.seek(raf.length()-1);
             raf.write(foot.getBytes());
             System.out.println("成功上传");
             raf.close();

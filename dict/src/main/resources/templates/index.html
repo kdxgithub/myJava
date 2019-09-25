@@ -126,6 +126,20 @@
                 <div class="layui-row">
                     <div class="layui-col-xs0 layui-col-sm0 layui-col-md2">&nbsp;</div>
                     <form class="layui-form layui-col-xs12 layui-col-sm12 layui-col-md8" action="">
+                        <div class="layui-form-item ">
+                            <label class="layui-form-label">产品序号</label>
+                            <div class="layui-input-inline">
+                                <input name="序号" lay-verify="required" id="pid" placeholder="" disabled class="layui-input" oninput="value=value.replace(/[^\d]/g,'')" />
+                            </div>
+                            <label class="layui-form-label">创建时间</label>
+                            <div class="layui-input-inline">
+                                <input name="创建时间" lay-verify="required" id="ptime" placeholder="" disabled class="layui-input" oninput="value=value.replace(/[^\d]/g,'')" />
+                            </div>
+                            <label class="layui-form-label">经办人</label>
+                            <div class="layui-input-inline">
+                                <input name="经办人" th:value="${user.name}" lay-verify="required" id="puser" placeholder="" disabled class="layui-input" oninput="value=value.replace(/[^\d]/g,'')" />
+                            </div>
+                        </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label" >服务场景</label>
                             <div class="layui-input-inline">
@@ -191,7 +205,7 @@
                             </div>
                             <label class="layui-form-label">每月资费(元)</label>
                             <div class="layui-input-inline">
-                                <input name="NET网关每月资费" id="NGWpriceCount" lay-verify="required" placeholder="NAT网关每月费用" class="layui-input" disabled oninput="value=value.replace(/[^\d]/g,'')"/>
+                                <input name="NAT网关每月资费" id="NGWpriceCount" lay-verify="required" placeholder="NAT网关每月费用" class="layui-input" disabled oninput="value=value.replace(/[^\d]/g,'')"/>
                             </div>
                         </div>
                         <div class="layui-form-item" id="DataSet">
@@ -272,7 +286,7 @@
                         <div class="layui-form-item">
                             <div class="layui-input-block">
                                 <button type="button" class="layui-btn layui-btn-danger " id="cleanDemo">清空购物栏</button>
-                                <button type="button" class="layui-btn layui-btn-danger " id="showTable">显示购物栏</button>
+                                <button type="button" class="layui-btn layui-btn-danger " id="showTable">清空购物栏</button>
                             </div>
                         </div>
                     </form>
@@ -322,162 +336,129 @@
         layui.use(['table','form'],function () {
             var table = layui.table;
             var form = layui.form;
+            var pid = 10001;
+            var ptime = new Date().toLocaleDateString();
+            $("#pid").val(pid);
+            $("#ptime").val(ptime);
             //监听提交
             form.on('submit(formDemo)',function(data){
                 priceCounts = JSON.stringify(data.field);
                 $("#priceCounts").append(priceCounts+"\n");
-                $.ajax({
-                    type:"post"
-                    ,url:"addProduct"
-                    ,dataType:"json"
-                    ,data:jsonData
-                    ,contentType:"application/json;charset=utf-8"
-                    ,success:function (data) {
-                        console.log(data);
-                    }
-                    ,error:function (e) {
-                        console.log(e);
-                    }
-                });
-                table.render({
-                    elem: '#demo'
-                    , url: '[[@{/json/test1.json(id=)}]]'+new Date().getMilliseconds()
-                    , toolbar: true
-                    , method: 'get'
-                    , title: '用户数据表'
-                    , totalRow: true
-                    , width: 892
-                    , height: 500
-                    , align: 'center'
-                    , cols: [
-                        [
-                            {
-                                field: '序号',
-                                title: '序号',
-                                align: 'center',
-                                width: 80,
-                                rowspan: 3,
-                                fixed: 'left',
-                                unresize: true,
-                                sort: true,
-                                totalRowText: '合计行'
-                            }
-                            , {field: '服务场景', title: '服务场景', align: 'center', width: 90, edit: 'text', rowspan: 3}
-                            , {field: '服务名称', title: '服务名称', align: 'center', width: 90, edit: 'text', rowspan: 3}
-                            , {field: '产品名称', title: '产品名称', align: 'center', width: 90, rowspan: 3}
-                            , {field: '需求数量', title: '需求数量', align: 'center', width: 90, edit: 'text', rowspan: 3}
-                            , {field: '套餐选择', title: '套餐选择', align: 'center', width: 100, colspan: 13}
-                            , {field: '使用时长', title: '使用时长', align: 'center', width: 100, rowspan: 3}
-                            , {field: '折扣', title: '折扣', align: 'center', width: 80, rowspan: 3}
-                            , {field: '合计', title: '合计', align: 'center', width: 100, rowspan: 3, totalRow: true}
-                        ]
-                        , [
-                            {field: '主套餐', title: '主套餐', align: 'center', width: 120, colspan: 2}
-                            , {field: '配套套餐', title: '配套套餐', align: 'center', width: 120, colspan: 4}
-                            , {field: '可选套餐', title: '可选套餐', align: 'center', width: 120, colspan: 5}
-                            , {field: '可选通讯费', title: '可选通讯费', align: 'center', width: 120, colspan: 2}
-                        ]
-                        , [
-                            {field: '套餐类型', title: '套餐类型', align: 'center', width: 120}
-                            , {field: '主套餐每月资费', title: '主套餐每月资费', align: 'center', width: 128}
-                            , {field: '出口带宽', title: '出口带宽', align: 'center', width: 120}
-                            , {field: '出口带宽每月资费', title: '出口带宽每月资费', align: 'center', width: 148}
-                            , {field: 'NAT网关', title: 'NAT网关', align: 'center', width: 120}
-                            , {field: 'NAT网关每月资费', title: 'NAT网关每月资费', align: 'center', width: 120}
-                            , {field: '数据盘0.3/G/月', title: '数据盘0.3/G/月月', align: 'center', width: 120}
-                            , {field: '云存储套餐', title: '云存储套餐', align: 'center', width: 120}
-                            , {field: '云存储每月资费', title: '云存储每月资费', align: 'center', width: 141}
-                            , {field: '短信包', title: '短信包', align: 'center', width: 120}
-                            , {field: '短信包每月资费', title: '短信包每月资费', align: 'center', width: 120}
-                            , {field: '短信0.1元/条', title: '短信0.1元/条', align: 'center', width: 120}
-                            , {field: '彩信0.3元/条', title: '彩信0.3元/条', align: 'center', width: 120}
-                        ]
-                    ]
-                    , page: true
-                    , response: {
-                        statusCode: 200
-                    }
-                    , parseData: function (res) {
-                        return {
-                            "code": res.status,
-                            "msg": res.message,
-                            "count": res.total,
-                            "data": res.rows.item
-                        };
-                    }
-                });
+                //合计计算
+                var _priceCounts = JSON.parse(priceCounts);
+                if(_priceCounts.hasOwnProperty("出口带宽每月资费")){
+                    _priceCounts.产品套餐每月资费 =parseInt(_priceCounts.出口带宽每月资费)
+                        +parseInt(_priceCounts.产品套餐每月资费);
+                }
+                if(_priceCounts.hasOwnProperty("NET网关每月资费")){
+                    _priceCounts.产品套餐每月资费 =parseInt(_priceCounts.NET网关每月资费)
+                        +parseInt(_priceCounts.产品套餐每月资费);
+                }
+                if(_priceCounts.hasOwnProperty("云存储")){
+                    _priceCounts.产品套餐每月资费 =parseInt(_priceCounts.云存储)
+                        +parseInt(_priceCounts.产品套餐每月资费);
+                }
+                if(_priceCounts.hasOwnProperty("短信包")){
+                    _priceCounts.产品套餐每月资费 =parseInt(_priceCounts.短信包)
+                        +parseInt(_priceCounts.产品套餐每月资费);
+                }
+                var counts = _priceCounts.需求数量*_priceCounts.产品套餐每月资费
+                    *_priceCounts.使用时长*_priceCounts.折扣/100;
+                AllPriceCounts = AllPriceCounts+counts;
+                console.log(counts);
+                $("#AllPriceCounts").html("合计："+AllPriceCounts+"元");
 
-                count++;
+                if(priceCounts != null){
+                    $.ajax({
+                        type:"post"
+                        ,url:"addProduct?id="+new Date().getMilliseconds()+"&counts="+counts
+                        ,dataType:"json"
+                        ,data:priceCounts
+                        ,contentType:"application/json;charset=utf-8"
+                        ,success:function (data) {
+                            console.log("ajax执行成功");
+                            table.render({
+                                elem: '#demo'
+                                , url: '[[@{/addProduct(id=)}]]'+new Date().getMilliseconds()
+                                , toolbar: true
+                                , method: 'get'
+                                , title: '用户数据表'
+                                , totalRow: true
+                                , height: 600
+                                , align: 'center'
+                                , cols: [
+                                    [
+                                        {
+                                            field: '序号',
+                                            title: '序号',
+                                            align: 'center',
+                                            width: 80,
+                                            rowspan: 3,
+                                            fixed: 'left',
+                                            unresize: true,
+                                            sort: true,
+                                            totalRowText: '合计行'
+                                        }
+                                        , {field: '服务场景', title: '服务场景', align: 'center', width: 90, edit: 'text', rowspan: 3}
+                                        , {field: '服务名称', title: '服务名称', align: 'center', width: 90, edit: 'text', rowspan: 3}
+                                        , {field: '产品名称', title: '产品名称', align: 'center', width: 90, rowspan: 3}
+                                        , {field: '需求数量', title: '需求数量', align: 'center', width: 90, edit: 'text', rowspan: 3,totalRow: true}
+                                        , {field: '套餐选择', title: '套餐选择', align: 'center', width: 100, colspan: 13}
+                                        , {field: '使用时长', title: '使用时长', align: 'center', width: 100, rowspan: 3}
+                                        , {field: '折扣', title: '折扣', align: 'center', width: 62, rowspan: 3}
+                                        , {field: '创建时间', title: '创建时间', align: 'center', width: 100, rowspan: 3}
+                                        , {field: '经办人', title: '经办人', align: 'center', width: 100, rowspan: 3}
+                                        , {field: '合计', title: '合计', align: 'center', width: 100, rowspan: 3, totalRow: true}
+                                    ]
+                                    , [
+                                        {field: '主套餐', title: '主套餐', align: 'center', width: 120, colspan: 2}
+                                        , {field: '配套套餐', title: '配套套餐', align: 'center', width: 120, colspan: 4}
+                                        , {field: '可选套餐', title: '可选套餐', align: 'center', width: 120, colspan: 5}
+                                        , {field: '可选通讯费', title: '可选通讯费', align: 'center', width: 120, colspan: 2}
+                                    ]
+                                    , [
+                                        {field: '产品套餐', title: '套餐类型', align: 'center', width: 120}
+                                        , {field: '产品套餐每月资费', title: '主套餐每月资费', align: 'center', width: 128,totalRow: true}
+                                        , {field: '出口带宽', title: '出口带宽', align: 'center', width: 120}
+                                        , {field: '出口带宽每月资费', title: '出口带宽每月资费', align: 'center', width: 148}
+                                        , {field: 'NAT网关套餐', title: 'NAT网关套餐', align: 'center', width: 120}
+                                        , {field: 'NAT网关每月资费', title: 'NAT网关每月资费', align: 'center', width: 120}
+                                        , {field: '数据盘', title: '数据盘', align: 'center', width: 120}
+                                        , {field: '云存储', title: '云存储套餐', align: 'center', width: 120}
+                                        , {field: '云存储每月资费', title: '云存储每月资费', align: 'center', width: 141}
+                                        , {field: '短信包', title: '短信包', align: 'center', width: 120}
+                                        , {field: '短信包每月资费', title: '短信包每月资费', align: 'center', width: 120}
+                                        , {field: '短信费', title: '短信费', align: 'center', width: 120}
+                                        , {field: '彩信费', title: '彩信费', align: 'center', width: 120}
+                                    ]
+                                ]
+                                , page: true
+                                , response: {
+                                    statusCode: 200
+                                }
+                                , parseData: function (res) {
+                                    return {
+                                        "code": res.status,
+                                        "msg": res.message,
+                                        "count": res.total,
+                                        "data": res.rows.item
+                                    };
+                                }
+                            });
+                        }
+                        ,error:function (e) {
+                            console.log("ajax执行失败");
+                        }
+                    });
+                }else{
+                    console.log("priceCounts没有数据");
+                }
+                pid++;
+                $("#pid").val(pid);
                 return false;
             });
-            $("#showTable").on('click', function () {
-                table.render({
-                    elem: '#demo'
-                    , url: '[[@{/json/test1.json(id=)}]]'+new Date().getMilliseconds()
-                    , toolbar: true
-                    , method: 'get'
-                    , title: '用户数据表'
-                    , totalRow: true
-                    , width: 892
-                    , height: 500
-                    , align: 'center'
-                    , cols: [
-                        [
-                            {
-                                field: '序号',
-                                title: '序号',
-                                align: 'center',
-                                width: 80,
-                                rowspan: 3,
-                                fixed: 'left',
-                                unresize: true,
-                                sort: true,
-                                totalRowText: '合计行'
-                            }
-                            , {field: '服务场景', title: '服务场景', align: 'center', width: 90, edit: 'text', rowspan: 3}
-                            , {field: '服务名称', title: '服务名称', align: 'center', width: 90, edit: 'text', rowspan: 3}
-                            , {field: '产品名称', title: '产品名称', align: 'center', width: 90, rowspan: 3}
-                            , {field: '需求数量', title: '需求数量', align: 'center', width: 90, edit: 'text', rowspan: 3}
-                            , {field: '套餐选择', title: '套餐选择', align: 'center', width: 100, colspan: 13}
-                            , {field: '使用时长', title: '使用时长', align: 'center', width: 100, rowspan: 3}
-                            , {field: '折扣', title: '折扣', align: 'center', width: 80, rowspan: 3}
-                            , {field: '合计', title: '合计', align: 'center', width: 100, rowspan: 3, totalRow: true}
-                        ]
-                        , [
-                            {field: '主套餐', title: '主套餐', align: 'center', width: 120, colspan: 2}
-                            , {field: '配套套餐', title: '配套套餐', align: 'center', width: 120, colspan: 4}
-                            , {field: '可选套餐', title: '可选套餐', align: 'center', width: 120, colspan: 5}
-                            , {field: '可选通讯费', title: '可选通讯费', align: 'center', width: 120, colspan: 2}
-                        ]
-                        , [
-                            {field: '套餐类型', title: '套餐类型', align: 'center', width: 120}
-                            , {field: '主套餐每月资费', title: '主套餐每月资费', align: 'center', width: 128}
-                            , {field: '出口带宽', title: '出口带宽', align: 'center', width: 120}
-                            , {field: '出口带宽每月资费', title: '出口带宽每月资费', align: 'center', width: 148}
-                            , {field: 'NAT网关', title: 'NAT网关', align: 'center', width: 120}
-                            , {field: 'NAT网关每月资费', title: 'NAT网关每月资费', align: 'center', width: 120}
-                            , {field: '数据盘0.3/G/月', title: '数据盘0.3/G/月月', align: 'center', width: 120}
-                            , {field: '云存储套餐', title: '云存储套餐', align: 'center', width: 120}
-                            , {field: '云存储每月资费', title: '云存储每月资费', align: 'center', width: 141}
-                            , {field: '短信包', title: '短信包', align: 'center', width: 120}
-                            , {field: '短信包每月资费', title: '短信包每月资费', align: 'center', width: 120}
-                            , {field: '短信0.1元/条', title: '短信0.1元/条', align: 'center', width: 120}
-                            , {field: '彩信0.3元/条', title: '彩信0.3元/条', align: 'center', width: 120}
-                        ]
-                    ]
-                    , page: true
-                    , response: {
-                        statusCode: 200
-                    }
-                    , parseData: function (res) {
-                        return {
-                            "code": res.status,
-                            "msg": res.message,
-                            "count": res.total,
-                            "data": res.rows.item
-                        };
-                    }
-                });
+            $("#showTable").on('click',function () {
+
             });
         });
     </script>

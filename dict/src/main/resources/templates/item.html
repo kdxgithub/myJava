@@ -5,17 +5,18 @@
     <title>Title</title>
 </head>
 <body>
-<p>如果你点我，我就会消失。</p>
-<p>继续点我!</p>
-<p>接着点我!</p>
+<pre>
+    {
+  "status": 200
+,"message": ""
+,"total": 1000
+,"rows": {
+  "item": [
+    {"服务场景":"会议协同","序号":"10003","服务名称":"云会议"}]}}
+</pre>
 
 <script th:src="@{js/jquery-3.4.1.js}"></script>
 <script>
-    $(document).ready(function () {
-       $("p").click(function () {
-         $(this).hide();
-       });
-    });
 </script>
 </body>
 </html>

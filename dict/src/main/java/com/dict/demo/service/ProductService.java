@@ -54,7 +54,7 @@ public interface ProductService {
     Product getIsStandardProduct(String productName);
 
     String getJSON(HttpServletRequest request);
-    void uploadJSON(File file,String jsonStr);
+    void uploadJSON(File file,String jsonStr,String counts);
 
 
 

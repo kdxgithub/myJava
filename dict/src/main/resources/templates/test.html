@@ -48,7 +48,7 @@
             $("#showTable").on('click',function () {
                 table.render({
                     elem:'#test3'
-                    ,url:'[[@{/json/test3.json}]]'
+                    ,url:'[[@{addProduct(id=)}]]'+new Date().getMilliseconds()
                     ,toolbar:true
                     ,title:'用户数据表'
                     ,totalRow:true
@@ -74,8 +74,8 @@
                             ,{field:'可选通讯费',title:'可选通讯费',align:'center',width:120,colspan:2}
                         ]
                         ,[
-                            {field:'套餐类型',title:'套餐类型',align:'center',width:120}
-                            ,{field:'主套餐每月资费',title:'主套餐每月资费',align:'center',width:128}
+                            {field:'产品套餐',title:'套餐类型',align:'center',width:120}
+                            ,{field:'产品套餐每月资费',title:'主套餐每月资费',align:'center',width:128}
                             ,{field:'出口带宽',title:'出口带宽',align:'center',width:120}
                             ,{field:'出口带宽每月资费',title:'出口带宽每月资费',align:'center',width:148}
                             ,{field:'NAT网关',title:'NAT网关',align:'center',width:120}

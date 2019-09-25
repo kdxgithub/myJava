@@ -95,3 +95,86 @@ layui.use('table',function () {
             ],'xls');
     })
 });
+
+//监听提交
+// form.on('submit(formDemo)',function(data){
+//     priceCounts = JSON.stringify(data.field);
+//     $("#priceCounts").append(priceCounts+"\n");
+//     $.ajax({
+//         type:"post"
+//         ,url:"addProduct"
+//         ,dataType:"json"
+//         ,data:jsonData
+//         ,contentType:"application/json;charset=utf-8"
+//         ,success:function (data) {
+//             console.log(data);
+//         }
+//         ,error:function (e) {
+//             console.log(e);
+//         }
+//     });
+//     // var _priceCounts = JSON.parse(priceCounts);
+//     // var tableThString="";
+//     // var tableTrString="";
+//     // number++;
+//     // $.each(_priceCounts,function (key,value) {
+//     //     tableThString +=
+//     //         "<th style='min-width: 80px;'>"+key+"</th>";
+//     //     tableTrString +=
+//     //         "<td>"+value+"</td>";
+//     //     outThead +="'"+key+"',";
+//     //     outTbody +="'"+value+"',";
+//     // });
+//     // outThead = outThead.substring(0,outThead.length-1);
+//     // outTbody = outTbody.substring(0,outTbody.length-1);
+//     // outThead = "["+outThead+"],";
+//     // outTbody = "["+outTbody+"],";
+//     // console.log(outThead+"\n"+outTbody);
+//     // if(tableTrString !== null && tableThString !== null){
+//     //     if(_priceCounts.hasOwnProperty("出口带宽每月资费")){
+//     //         _priceCounts.产品套餐每月资费 =parseInt(_priceCounts.出口带宽每月资费)
+//     //             +parseInt(_priceCounts.产品套餐每月资费);
+//     //     }
+//     //     if(_priceCounts.hasOwnProperty("NET网关每月资费")){
+//     //         _priceCounts.产品套餐每月资费 =parseInt(_priceCounts.NET网关每月资费)
+//     //             +parseInt(_priceCounts.产品套餐每月资费);
+//     //     }
+//     //     if(_priceCounts.hasOwnProperty("云存储")){
+//     //         _priceCounts.产品套餐每月资费 =parseInt(_priceCounts.云存储)
+//     //             +parseInt(_priceCounts.产品套餐每月资费);
+//     //     }
+//     //     if(_priceCounts.hasOwnProperty("短信包")){
+//     //         _priceCounts.产品套餐每月资费 =parseInt(_priceCounts.短信包)
+//     //             +parseInt(_priceCounts.产品套餐每月资费);
+//     //     }
+//     //     var counts = _priceCounts.需求数量*_priceCounts.产品套餐每月资费
+//     //         *_priceCounts.使用时长*_priceCounts.折扣/100;
+//     //     AllPriceCounts = AllPriceCounts+counts;
+//     //     $("#AllPriceCounts").html("合计："+AllPriceCounts+"元");
+//     //
+//     //     var tableString =
+//     //         "<thead><tr><th>序号</th>"+tableThString+"<th>合计</th>"+
+//     //         "</tr></thead>"+
+//     //         "<tbody><tr><td>"+number+"</td>"+tableTrString+"<td>"+counts+"</td>"+"</tr></tbody>"
+//     //     ;
+//     //     var browser_width = $(document.body).width();
+//     //     $("#divTable").css("width",browser_width);
+//     //     $("#demo").append(tableString);
+//     // }
+//     // $.ajax({
+//     //     type:"post"
+//     //     ,url:"addProduct"
+//     //     ,dataType:"json"
+//     //     ,data:priceCounts
+//     //     ,contentType:"application/json;charset=utf-8"
+//     //     ,success:function (data) {
+//     //         console.log(data);
+//     //     }
+//     //     ,error:function (e) {
+//     //         console.log(e);
+//     //     }
+//     // });
+//     count++;
+//     return false;
+// });
+//清空购物栏
