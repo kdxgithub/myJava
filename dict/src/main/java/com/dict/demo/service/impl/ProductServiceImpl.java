@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.RandomAccessFile;
+import java.io.*;
 import java.util.List;
 
 /** 产品业务的实现
@@ -86,6 +84,25 @@ public class ProductServiceImpl implements ProductService {
             raf.close();
         }catch (Exception e){
             System.out.println("上传失败，原因："+e.toString());
+        }
+    }
+
+    @Override
+    public void clearJSON(File file) {
+        try{
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            String initJSON = "{\n" +
+                    "  \"status\": 200\n" +
+                    ",\"message\": \"\"\n" +
+                    ",\"total\": 1000\n" +
+                    ",\"rows\": {\n" +
+                    "  \"item\": [\n" +
+                    "    ]}}";
+            writer.write(initJSON);
+            writer.flush();
+            writer.close();
+        }catch (Exception e){
+            System.out.println("清除表格有误："+e.toString());
         }
     }
 }

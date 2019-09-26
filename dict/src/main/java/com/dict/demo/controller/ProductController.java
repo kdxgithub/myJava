@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -80,12 +78,29 @@ public class ProductController {
             if(!path.exists()){
                 path = new File("");
             }
-            //找到json文件
-            File json = new File(path.getAbsolutePath(),"static/json/test1.json");
-            //File json = new File("C:\\Users\\CDDX\\Desktop\\MyJava\\dict\\src\\main\\resources\\static\\json\\test3.json");
+            //找到json文件,为每个用户创建一个临时文件夹
+            String userName = request.getParameter("username");
+            String fileDir = "static\\temp\\";
+            String fileName = fileDir+userName+".json";
+            File json = new File(path.getAbsolutePath(),fileName);
+            File jsonDir = new File(path.getAbsolutePath(),fileDir);
             if(!json.exists()){
-                System.out.println("文件没有找到");
-            }else {
+                if(!jsonDir.exists()){
+                    jsonDir.mkdirs();
+                }
+                json.createNewFile();
+                BufferedWriter writer = new BufferedWriter(new FileWriter(json));
+                String initJSON = "{\n" +
+                        "  \"status\": 200\n" +
+                        ",\"message\": \"\"\n" +
+                        ",\"total\": 1000\n" +
+                        ",\"rows\": {\n" +
+                        "  \"item\": [\n" +
+                        "    ]}}";
+                writer.write(initJSON);
+                writer.flush();
+                writer.close();
+            }
                 System.out.println("文件已找到");
                 //获取服务器上传的json
                 String jsonStr = productService.getJSON(request);
@@ -103,20 +118,41 @@ public class ProductController {
                     stringBuffer.append(tempStr);
                 }
                 reader.close();
-
                 return stringBuffer.toString();
-            }
+
         }catch (Exception e){
             e.printStackTrace();
         }
         return null;
     }
 
-    @RequestMapping(value = "showProduct")
+    @RequestMapping(value = "clearProduct")
     @ResponseBody
     public String showProduct(HttpServletRequest request){
-        StringBuffer stringBuffer = new StringBuffer();
-
+        try{
+            //获取根目录
+            File path = new File(ResourceUtils.getURL("classpath:").getPath());
+            if(!path.exists()){
+                path = new File("");
+            }
+            //找到json文件,为每个用户创建一个临时文件夹
+            String userName = request.getParameter("username");
+            String fileDir = "static\\temp\\";
+            String fileName = fileDir+userName+".json";
+            File json = new File(path.getAbsolutePath(),fileName);
+            File jsonDir = new File(path.getAbsolutePath(),fileDir);
+            if(!json.exists()){
+                if(!jsonDir.exists()){
+                    jsonDir.mkdirs();
+                }
+                json.createNewFile();
+            }
+            productService.clearJSON(json);
+            System.out.println("清除成功");
+            return "清除成功";
+        }catch (Exception e){
+            System.out.println("清除失败："+e.toString());
+        }
         return null;
     }
 }

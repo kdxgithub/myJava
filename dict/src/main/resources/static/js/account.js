@@ -97,13 +97,6 @@ layui.use(['form','table','element'],function () {
     //     count++;
     //     return false;
     // });
-    //清空购物栏
-    $("#cleanDemo").on('click',function () {
-        $("#demo").html("");
-        $("#AllPriceCounts").html("合计");
-        AllPriceCounts = 0.0;
-        number = 0;
-    });
 
     //二级联动下拉列表：服务名称选择
     form.on('select(product1)',function () {

@@ -55,6 +55,7 @@ public interface ProductService {
 
     String getJSON(HttpServletRequest request);
     void uploadJSON(File file,String jsonStr,String counts);
+    void clearJSON(File file);
 
 
 
