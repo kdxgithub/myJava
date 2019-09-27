@@ -5,3 +5,11 @@
 .color-red{
     color: red!important;
 }
+
+#Account{
+    position: relative!important;
+    top: 0px;
+    height: 80vh;
+    width: 100vw;
+    overflow-y: scroll;
+}

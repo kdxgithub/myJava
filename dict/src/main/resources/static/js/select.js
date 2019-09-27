@@ -28,14 +28,16 @@ layui.use('element',function () {
 
     function hideLeftBody() {
         $("#leftBody").animate({width:'0px'});
-        $(".layui-body").animate({left:'0px'});
+        $("#Select").animate({left:'0px'});
+        $("#Account").animate({left:'-15px'});
         $(".layui-footer").animate({left:'0px'});
         $("#showLeftBody").show();
         $("#hideLeftBody").hide();
     }
     function showLeftBody() {
         $("#leftBody").animate({width:'100px'});
-        $(".layui-body").animate({left:'100px'});
+        $("#Select").animate({left:'100px'});
+        $("#Account").animate({left:'85px'});
         $(".layui-footer").animate({left:'0px'});
         $("#hideLeftBody").show();
         $("#showLeftBody").hide();

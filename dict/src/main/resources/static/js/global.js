@@ -40,4 +40,9 @@ layui.use('layer',function () {
             }
         });
     });
+
+    // $(":input").on('focus',function () {
+    //     var h = window.innerHeight;
+    //     $('body').height(h);
+    // });
 });

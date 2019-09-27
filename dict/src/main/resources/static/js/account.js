@@ -64,39 +64,6 @@ layui.use(['form','table','element'],function () {
     var table = layui.table;
     var element = layui.element;
     var count = 0;
-    //监听提交
-    // form.on('submit(formDemo)',function(data){
-    //     priceCounts = JSON.stringify(data.field);
-    //     $("#priceCounts").append(priceCounts+"\n");
-    //     // var _priceCounts = JSON.parse(priceCounts);
-    //     // var tableThString="";
-    //     // var tableTrString="";
-    //     // number++;
-    //     // if(tableTrString !== null && tableThString !== null){
-    //     //     if(_priceCounts.hasOwnProperty("出口带宽每月资费")){
-    //     //         _priceCounts.产品套餐每月资费 =parseInt(_priceCounts.出口带宽每月资费)
-    //     //             +parseInt(_priceCounts.产品套餐每月资费);
-    //     //     }
-    //     //     if(_priceCounts.hasOwnProperty("NET网关每月资费")){
-    //     //         _priceCounts.产品套餐每月资费 =parseInt(_priceCounts.NET网关每月资费)
-    //     //             +parseInt(_priceCounts.产品套餐每月资费);
-    //     //     }
-    //     //     if(_priceCounts.hasOwnProperty("云存储")){
-    //     //         _priceCounts.产品套餐每月资费 =parseInt(_priceCounts.云存储)
-    //     //             +parseInt(_priceCounts.产品套餐每月资费);
-    //     //     }
-    //     //     if(_priceCounts.hasOwnProperty("短信包")){
-    //     //         _priceCounts.产品套餐每月资费 =parseInt(_priceCounts.短信包)
-    //     //             +parseInt(_priceCounts.产品套餐每月资费);
-    //     //     }
-    //     //     var counts = _priceCounts.需求数量*_priceCounts.产品套餐每月资费
-    //     //         *_priceCounts.使用时长*_priceCounts.折扣/100;
-    //     //     AllPriceCounts = AllPriceCounts+counts;
-    //     //     $("#AllPriceCounts").html("合计："+AllPriceCounts+"元");
-    //     // }
-    //     count++;
-    //     return false;
-    // });
 
     //二级联动下拉列表：服务名称选择
     form.on('select(product1)',function () {
