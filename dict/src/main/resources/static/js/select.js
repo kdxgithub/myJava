@@ -42,4 +42,5 @@ layui.use('element',function () {
         $("#hideLeftBody").show();
         $("#showLeftBody").hide();
     }
+
 });
